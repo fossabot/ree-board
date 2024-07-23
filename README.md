@@ -1,17 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Ree-Board
+
+Retro Board build using [Next.js](https://nextjs.org/), [TailwindCSS](https://tailwindcss.com/), [Turso](https://turso.tech/) and [Auth0](https://auth0.com/)
+
+## Prerequisite
+
+- [pnpm](https://pnpm.io/)
+- [nodejs](https://nodejs.org/) LTS version equal or greater than v20
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm i
+```
+
+1. Run the development server:
+
+```bash
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
