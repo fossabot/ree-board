@@ -1,0 +1,26 @@
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[tsx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.markdownlint": true
+    },
+    "editor.formatOnSave": false
+  },
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.guides.bracketPairs": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true
+}
