@@ -4,7 +4,9 @@ import { text, sqliteTable, integer, index } from "drizzle-orm/sqlite-core";
 export const userTable = sqliteTable(
   "user",
   {
-    id: text("id").primaryKey().default(sql`uuid4()`), // Use UUIDv4 for primary key
+    id: text("id")
+      .primaryKey()
+      .default(sql`uuid4()`), // Use UUIDv4 for primary key
     name: text("name").notNull().unique(),
     auth0_id: text("auth0_id").notNull().unique(),
     email: text("email").notNull().unique(),
