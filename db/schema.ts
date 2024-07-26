@@ -4,15 +4,13 @@ import { text, sqliteTable, integer, index } from "drizzle-orm/sqlite-core";
 export const userTable = sqliteTable(
   "user",
   {
-    id: text("id")
-      .primaryKey()
-      .default(sql`uuid4()`), // Use UUIDv4 for primary key
+    id: text("id").primaryKey(), // Use UUIDv4 for primary key
     name: text("name").notNull().unique(),
     auth0_id: text("auth0_id").notNull().unique(),
     email: text("email").notNull().unique(),
     createdAt: integer("createdAt", { mode: "timestamp" })
       .notNull()
-      .default(sql`(unixepoch())`),
+      .default(sql`(strftime('%s', 'now'))`),
   },
   (table) => ({
     nameIdx: index("user_name_index").on(table.name),
@@ -32,10 +30,10 @@ export const boardTable = sqliteTable(
     state: integer("state").$type<BoardState>().notNull(),
     createdAt: integer("createdAt", { mode: "timestamp" })
       .notNull()
-      .default(sql`(unixepoch())`),
+      .default(sql`(strftime('%s', 'now'))`),
     updatedAt: integer("updatedAt", { mode: "timestamp" })
       .notNull()
-      .default(sql`(unixepoch())`),
+      .default(sql`(strftime('%s', 'now'))`),
     creator: integer("userId").references(() => userTable.id, {
       onDelete: "set null",
     }),
@@ -58,10 +56,10 @@ export const postTable = sqliteTable(
     }),
     createdAt: integer("createdAt", { mode: "timestamp" })
       .notNull()
-      .default(sql`(unixepoch())`),
+      .default(sql`(strftime('%s', 'now'))`),
     updatedAt: integer("updatedAt", { mode: "timestamp" })
       .notNull()
-      .default(sql`(unixepoch())`),
+      .default(sql`(strftime('%s', 'now'))`),
   },
   (table) => ({
     boardIdIdx: index("post_board_id_index").on(table.boardId),
@@ -87,10 +85,10 @@ export const memberTable = sqliteTable(
     role: integer("role").$type<Role>().notNull(),
     createdAt: integer("createdAt", { mode: "timestamp" })
       .notNull()
-      .default(sql`(unixepoch())`),
+      .default(sql`(strftime('%s', 'now'))`),
     updatedAt: integer("updatedAt", { mode: "timestamp" })
       .notNull()
-      .default(sql`(unixepoch())`),
+      .default(sql`(strftime('%s', 'now'))`),
   },
   (table) => ({
     userIdIdx: index("members_user_id_index").on(table.userId),

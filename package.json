@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "generate": "drizzle-kit generate",
-    "migrate": "drizzle-kit migrate"
+    "migrate": "drizzle-kit migrate",
+    "push": "drizzle-kit push",
+    "push:dev": "NODE_ENV=development drizzle-kit push"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",

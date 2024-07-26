@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "320b53c4-a284-46e9-8def-42b96803bc8a",
+  "id": "3cf4705f-207a-4802-9382-8127a5899eaf",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "board": {
@@ -34,7 +34,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(unixepoch())"
+          "default": "(strftime('%s', 'now'))"
         },
         "updatedAt": {
           "name": "updatedAt",
@@ -42,7 +42,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(unixepoch())"
+          "default": "(strftime('%s', 'now'))"
         },
         "userId": {
           "name": "userId",
@@ -116,7 +116,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(unixepoch())"
+          "default": "(strftime('%s', 'now'))"
         },
         "updatedAt": {
           "name": "updatedAt",
@@ -124,7 +124,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(unixepoch())"
+          "default": "(strftime('%s', 'now'))"
         }
       },
       "indexes": {
@@ -211,7 +211,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(unixepoch())"
+          "default": "(strftime('%s', 'now'))"
         },
         "updatedAt": {
           "name": "updatedAt",
@@ -219,7 +219,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(unixepoch())"
+          "default": "(strftime('%s', 'now'))"
         }
       },
       "indexes": {
@@ -270,8 +270,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false,
-          "default": "uuid4()"
+          "autoincrement": false
         },
         "name": {
           "name": "name",
@@ -300,7 +299,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(unixepoch())"
+          "default": "(strftime('%s', 'now'))"
         }
       },
       "indexes": {

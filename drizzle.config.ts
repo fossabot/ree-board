@@ -12,6 +12,7 @@ export default defineConfig(
         dbCredentials: {
           url: "file:test.db",
         },
+        verbose: true,
       }
     : {
         dialect: "sqlite",

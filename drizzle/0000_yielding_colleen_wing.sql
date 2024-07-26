@@ -2,8 +2,8 @@ CREATE TABLE `board` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`title` text NOT NULL,
 	`state` integer NOT NULL,
-	`createdAt` integer DEFAULT (unixepoch()) NOT NULL,
-	`updatedAt` integer DEFAULT (unixepoch()) NOT NULL,
+	`createdAt` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
+	`updatedAt` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
 	`userId` integer,
 	FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE set null
 );
@@ -13,8 +13,8 @@ CREATE TABLE `member` (
 	`userId` integer,
 	`boardId` integer,
 	`role` integer NOT NULL,
-	`createdAt` integer DEFAULT (unixepoch()) NOT NULL,
-	`updatedAt` integer DEFAULT (unixepoch()) NOT NULL,
+	`createdAt` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
+	`updatedAt` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
 	FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`boardId`) REFERENCES `board`(`id`) ON UPDATE no action ON DELETE cascade
 );
@@ -24,18 +24,18 @@ CREATE TABLE `post` (
 	`content` text NOT NULL,
 	`userId` integer,
 	`boardId` integer,
-	`createdAt` integer DEFAULT (unixepoch()) NOT NULL,
-	`updatedAt` integer DEFAULT (unixepoch()) NOT NULL,
+	`createdAt` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
+	`updatedAt` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
 	FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE set null,
 	FOREIGN KEY (`boardId`) REFERENCES `board`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `user` (
-	`id` text PRIMARY KEY DEFAULT uuid4() NOT NULL,
+	`id` text PRIMARY KEY NOT NULL,
 	`name` text NOT NULL,
 	`auth0_id` text NOT NULL,
 	`email` text NOT NULL,
-	`createdAt` integer DEFAULT (unixepoch()) NOT NULL
+	`createdAt` integer DEFAULT (strftime('%s', 'now')) NOT NULL
 );
 --> statement-breakpoint
 CREATE INDEX `board_state_index` ON `board` (`state`);--> statement-breakpoint
