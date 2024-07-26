@@ -11,6 +11,7 @@
     "migrate": "drizzle-kit migrate"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.5.0",
     "@libsql/client": "^0.7.0",
     "drizzle-orm": "^0.32.0",
     "next": "14.2.5",
