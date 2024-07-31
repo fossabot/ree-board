@@ -6,7 +6,7 @@ export const userTable = sqliteTable(
   {
     id: text("id").primaryKey(), // Use UUIDv4 for primary key
     name: text("name").notNull().unique(),
-    auth0_id: text("auth0_id").notNull().unique(),
+    kinde_id: text("kinde_id").notNull().unique(),
     email: text("email").notNull().unique(),
     createdAt: integer("createdAt", { mode: "timestamp" })
       .notNull()

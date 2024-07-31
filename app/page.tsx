@@ -1,9 +1,10 @@
-import { getSession } from "@auth0/nextjs-auth0";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from 'next/navigation';
 
 export default async function Home() {
-  const session = await getSession();
-  if (!session?.user) {
+  const { isAuthenticated } = getKindeServerSession();
+  const isUserAuthenticated = await isAuthenticated();
+  if (!isUserAuthenticated) {
     redirect('/api/auth/login')
   } else {
     redirect('/dashboard')

@@ -55,9 +55,7 @@
       "indexes": {
         "board_state_index": {
           "name": "board_state_index",
-          "columns": [
-            "state"
-          ],
+          "columns": ["state"],
           "isUnique": false
         }
       },
@@ -66,12 +64,8 @@
           "name": "board_userId_user_id_fk",
           "tableFrom": "board",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -130,16 +124,12 @@
       "indexes": {
         "members_user_id_index": {
           "name": "members_user_id_index",
-          "columns": [
-            "userId"
-          ],
+          "columns": ["userId"],
           "isUnique": false
         },
         "members_board_id_index": {
           "name": "members_board_id_index",
-          "columns": [
-            "boardId"
-          ],
+          "columns": ["boardId"],
           "isUnique": false
         }
       },
@@ -148,12 +138,8 @@
           "name": "member_userId_user_id_fk",
           "tableFrom": "member",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -161,12 +147,8 @@
           "name": "member_boardId_board_id_fk",
           "tableFrom": "member",
           "tableTo": "board",
-          "columnsFrom": [
-            "boardId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["boardId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -225,9 +207,7 @@
       "indexes": {
         "post_board_id_index": {
           "name": "post_board_id_index",
-          "columns": [
-            "boardId"
-          ],
+          "columns": ["boardId"],
           "isUnique": false
         }
       },
@@ -236,12 +216,8 @@
           "name": "post_userId_user_id_fk",
           "tableFrom": "post",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -249,12 +225,8 @@
           "name": "post_boardId_board_id_fk",
           "tableFrom": "post",
           "tableTo": "board",
-          "columnsFrom": [
-            "boardId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["boardId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -279,8 +251,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "auth0_id": {
-          "name": "auth0_id",
+        "kinde_id": {
+          "name": "kinde_id",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -305,30 +277,22 @@
       "indexes": {
         "user_name_unique": {
           "name": "user_name_unique",
-          "columns": [
-            "name"
-          ],
+          "columns": ["name"],
           "isUnique": true
         },
-        "user_auth0_id_unique": {
-          "name": "user_auth0_id_unique",
-          "columns": [
-            "auth0_id"
-          ],
+        "user_kinde_id_unique": {
+          "name": "user_kinde_id_unique",
+          "columns": ["kinde_id"],
           "isUnique": true
         },
         "user_email_unique": {
           "name": "user_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         },
         "user_name_index": {
           "name": "user_name_index",
-          "columns": [
-            "name"
-          ],
+          "columns": ["name"],
           "isUnique": false
         }
       },

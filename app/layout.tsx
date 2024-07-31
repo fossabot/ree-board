@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 export const metadata: Metadata = {
   title: "Ree Board",
@@ -15,11 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <UserProvider>
           <main id="app" className="flex flex-col">
             <div className="flex-grow-1 mt-5">{children}</div>
           </main>
-        </UserProvider>
       </body>
     </html>
   );

@@ -1,6 +1,13 @@
 {
   "version": "0.2",
-  "words": ["daisyui", "nextjs", "testid", "turso", "typeography"],
+  "words": [
+    "daisyui",
+    "kinde",
+    "nextjs",
+    "testid",
+    "turso",
+    "typeography"
+  ],
   "ignorePaths": [
     ".vscode/extensions.json",
     ".vscode/settings.json",

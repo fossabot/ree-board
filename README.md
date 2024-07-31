@@ -1,6 +1,6 @@
 # Ree-Board
 
-Retro Board build using [Next.js](https://nextjs.org/), [TailwindCSS](https://tailwindcss.com/), [Turso](https://turso.tech/) and [Auth0](https://auth0.com/)
+Retro Board build using [Next.js](https://nextjs.org/), [TailwindCSS](https://tailwindcss.com/), [Turso](https://turso.tech/) and [Kinde](https://kinde.com/)
 
 ## Prerequisite
 
