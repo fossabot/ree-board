@@ -1,9 +1,10 @@
 import React, { ReactNode } from "react";
 
 import NavBarItem from "./NavBarItem";
+import Link from "next/link";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-interface AnchorLinkProps {
+interface PageLinkProps {
   children: ReactNode;
   href: string;
   className?: string;
@@ -12,7 +13,7 @@ interface AnchorLinkProps {
   testId?: string;
 }
 
-const AnchorLink: React.FC<AnchorLinkProps> = ({
+const PageLink: React.FC<PageLinkProps> = ({
   children,
   href,
   className,
@@ -21,7 +22,7 @@ const AnchorLink: React.FC<AnchorLinkProps> = ({
   testId,
 }) => {
   return (
-    <a href={href}>
+    <Link href={href}>
       <NavBarItem
         className={className}
         icon={icon}
@@ -30,8 +31,8 @@ const AnchorLink: React.FC<AnchorLinkProps> = ({
       >
         {children}
       </NavBarItem>
-    </a>
+    </Link>
   );
 };
 
-export default AnchorLink;
+export default PageLink;
