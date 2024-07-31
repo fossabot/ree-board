@@ -1,13 +1,11 @@
-"use client";
-
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { getSession } from "@auth0/nextjs-auth0";
 import { redirect } from 'next/navigation';
 
-export default function Home() {
-  const { user, isLoading } = useUser();
-  if (!isLoading && !user) {
+export default async function Home() {
+  const session = await getSession();
+  if (!session || !session.user) {
     redirect('/api/auth/login')
   } else {
-    redirect('/api/auth/login')
+    redirect('/dashboard')
   }
 }
