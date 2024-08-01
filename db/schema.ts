@@ -34,7 +34,7 @@ export const boardTable = sqliteTable(
     updatedAt: integer("updatedAt", { mode: "timestamp" })
       .notNull()
       .default(sql`(strftime('%s', 'now'))`),
-    creator: integer("userId").references(() => userTable.id, {
+    creator: text("userId").references(() => userTable.id, {
       onDelete: "set null",
     }),
   },
@@ -76,7 +76,7 @@ export const memberTable = sqliteTable(
   "member",
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
-    userId: integer("userId").references(() => userTable.id, {
+    userId: text("userId").references(() => userTable.id, {
       onDelete: "cascade",
     }),
     boardId: integer("boardId").references(() => boardTable.id, {

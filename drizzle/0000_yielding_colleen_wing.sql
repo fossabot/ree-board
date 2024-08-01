@@ -4,13 +4,13 @@ CREATE TABLE `board` (
 	`state` integer NOT NULL,
 	`createdAt` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
 	`updatedAt` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
-	`userId` integer,
+	`userId` text,
 	FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE set null
 );
 --> statement-breakpoint
 CREATE TABLE `member` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`userId` integer,
+	`userId` text,
 	`boardId` integer,
 	`role` integer NOT NULL,
 	`createdAt` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE `member` (
 CREATE TABLE `post` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`content` text NOT NULL,
-	`userId` integer,
+	`userId` text,
 	`boardId` integer,
 	`createdAt` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
 	`updatedAt` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
