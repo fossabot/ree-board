@@ -8,7 +8,7 @@ export const userTable = sqliteTable(
     name: text("name").notNull().unique(),
     kinde_id: text("kinde_id").notNull().unique(),
     email: text("email").notNull().unique(),
-    createdAt: integer("createdAt", { mode: "timestamp" })
+    createdAt: integer("created_at", { mode: "timestamp" })
       .notNull()
       .default(sql`(strftime('%s', 'now'))`),
   },
@@ -17,7 +17,7 @@ export const userTable = sqliteTable(
   })
 );
 
-enum BoardState {
+export enum BoardState {
   active,
   archived,
 }
@@ -28,13 +28,13 @@ export const boardTable = sqliteTable(
     id: integer("id").primaryKey({ autoIncrement: true }),
     title: text("title").notNull(),
     state: integer("state").$type<BoardState>().notNull(),
-    createdAt: integer("createdAt", { mode: "timestamp" })
+    createdAt: integer("created_at", { mode: "timestamp" })
       .notNull()
       .default(sql`(strftime('%s', 'now'))`),
-    updatedAt: integer("updatedAt", { mode: "timestamp" })
+    updatedAt: integer("updated_at", { mode: "timestamp" })
       .notNull()
       .default(sql`(strftime('%s', 'now'))`),
-    creator: text("userId").references(() => userTable.id, {
+    creator: text("user_id").references(() => userTable.id, {
       onDelete: "set null",
     }),
   },
@@ -43,21 +43,29 @@ export const boardTable = sqliteTable(
   })
 );
 
+export enum PostType {
+  'went_well',
+  'to_improvement',
+  'to_discuss',
+  'action_item',
+}
+
 export const postTable = sqliteTable(
   "post",
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
     content: text("content").notNull(),
-    author: integer("userId").references(() => userTable.id, {
+    author: text("user_id").references(() => userTable.id, {
       onDelete: "set null",
     }),
-    boardId: integer("boardId").references(() => boardTable.id, {
+    boardId: integer("board_id").references(() => boardTable.id, {
       onDelete: "cascade",
     }),
-    createdAt: integer("createdAt", { mode: "timestamp" })
+    type: integer("post_type").$type<PostType>().notNull(),
+    createdAt: integer("created_at", { mode: "timestamp" })
       .notNull()
       .default(sql`(strftime('%s', 'now'))`),
-    updatedAt: integer("updatedAt", { mode: "timestamp" })
+    updatedAt: integer("updated_at", { mode: "timestamp" })
       .notNull()
       .default(sql`(strftime('%s', 'now'))`),
   },
@@ -66,7 +74,7 @@ export const postTable = sqliteTable(
   })
 );
 
-enum Role {
+export enum Role {
   owner,
   member,
   guest,
@@ -76,17 +84,17 @@ export const memberTable = sqliteTable(
   "member",
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
-    userId: text("userId").references(() => userTable.id, {
+    userId: text("user_id").references(() => userTable.id, {
       onDelete: "cascade",
     }),
-    boardId: integer("boardId").references(() => boardTable.id, {
+    boardId: integer("board_id").references(() => boardTable.id, {
       onDelete: "cascade",
     }),
     role: integer("role").$type<Role>().notNull(),
-    createdAt: integer("createdAt", { mode: "timestamp" })
+    createdAt: integer("created_at", { mode: "timestamp" })
       .notNull()
       .default(sql`(strftime('%s', 'now'))`),
-    updatedAt: integer("updatedAt", { mode: "timestamp" })
+    updatedAt: integer("updated_at", { mode: "timestamp" })
       .notNull()
       .default(sql`(strftime('%s', 'now'))`),
   },

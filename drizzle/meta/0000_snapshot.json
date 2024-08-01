@@ -28,25 +28,25 @@
           "notNull": true,
           "autoincrement": false
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "(strftime('%s', 'now'))"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "(strftime('%s', 'now'))"
         },
-        "userId": {
-          "name": "userId",
-          "type": "integer",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -55,17 +55,23 @@
       "indexes": {
         "board_state_index": {
           "name": "board_state_index",
-          "columns": ["state"],
+          "columns": [
+            "state"
+          ],
           "isUnique": false
         }
       },
       "foreignKeys": {
-        "board_userId_user_id_fk": {
-          "name": "board_userId_user_id_fk",
+        "board_user_id_user_id_fk": {
+          "name": "board_user_id_user_id_fk",
           "tableFrom": "board",
           "tableTo": "user",
-          "columnsFrom": ["userId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -83,15 +89,15 @@
           "notNull": true,
           "autoincrement": true
         },
-        "userId": {
-          "name": "userId",
-          "type": "integer",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "boardId": {
-          "name": "boardId",
+        "board_id": {
+          "name": "board_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -104,16 +110,16 @@
           "notNull": true,
           "autoincrement": false
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "(strftime('%s', 'now'))"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -124,31 +130,43 @@
       "indexes": {
         "members_user_id_index": {
           "name": "members_user_id_index",
-          "columns": ["userId"],
+          "columns": [
+            "user_id"
+          ],
           "isUnique": false
         },
         "members_board_id_index": {
           "name": "members_board_id_index",
-          "columns": ["boardId"],
+          "columns": [
+            "board_id"
+          ],
           "isUnique": false
         }
       },
       "foreignKeys": {
-        "member_userId_user_id_fk": {
-          "name": "member_userId_user_id_fk",
+        "member_user_id_user_id_fk": {
+          "name": "member_user_id_user_id_fk",
           "tableFrom": "member",
           "tableTo": "user",
-          "columnsFrom": ["userId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "member_boardId_board_id_fk": {
-          "name": "member_boardId_board_id_fk",
+        "member_board_id_board_id_fk": {
+          "name": "member_board_id_board_id_fk",
           "tableFrom": "member",
           "tableTo": "board",
-          "columnsFrom": ["boardId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "board_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -173,30 +191,37 @@
           "notNull": true,
           "autoincrement": false
         },
-        "userId": {
-          "name": "userId",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "board_id": {
+          "name": "board_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "boardId": {
-          "name": "boardId",
+        "post_type": {
+          "name": "post_type",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "(strftime('%s', 'now'))"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -207,26 +232,36 @@
       "indexes": {
         "post_board_id_index": {
           "name": "post_board_id_index",
-          "columns": ["boardId"],
+          "columns": [
+            "board_id"
+          ],
           "isUnique": false
         }
       },
       "foreignKeys": {
-        "post_userId_user_id_fk": {
-          "name": "post_userId_user_id_fk",
+        "post_user_id_user_id_fk": {
+          "name": "post_user_id_user_id_fk",
           "tableFrom": "post",
           "tableTo": "user",
-          "columnsFrom": ["userId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
-        "post_boardId_board_id_fk": {
-          "name": "post_boardId_board_id_fk",
+        "post_board_id_board_id_fk": {
+          "name": "post_board_id_board_id_fk",
           "tableFrom": "post",
           "tableTo": "board",
-          "columnsFrom": ["boardId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "board_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -265,8 +300,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -277,22 +312,30 @@
       "indexes": {
         "user_name_unique": {
           "name": "user_name_unique",
-          "columns": ["name"],
+          "columns": [
+            "name"
+          ],
           "isUnique": true
         },
         "user_kinde_id_unique": {
           "name": "user_kinde_id_unique",
-          "columns": ["kinde_id"],
+          "columns": [
+            "kinde_id"
+          ],
           "isUnique": true
         },
         "user_email_unique": {
           "name": "user_email_unique",
-          "columns": ["email"],
+          "columns": [
+            "email"
+          ],
           "isUnique": true
         },
         "user_name_index": {
           "name": "user_name_index",
-          "columns": ["name"],
+          "columns": [
+            "name"
+          ],
           "isUnique": false
         }
       },
