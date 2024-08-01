@@ -1,9 +1,8 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { NextResponse } from "next/server";
-import { NextApiRequest } from "next/types";
+import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async function board(
-  req: NextApiRequest
+  req: NextRequest
 ) {
   const res = new NextResponse();
   try {
