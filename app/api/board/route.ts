@@ -1,4 +1,4 @@
-import { fetchBoards } from "@/lib/db/fetchBoard";
+import { fetchBoards } from "@/lib/db/board";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -14,7 +14,8 @@ export const GET = async function board(req: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: "User not found", status: 404 });
     }
-    const boards = await fetchBoards(user.id);
+
+    const boards = await fetchBoards(user.id, true);
     return NextResponse.json(boards);
   } catch (error: unknown) {
     if (error instanceof Error) {
