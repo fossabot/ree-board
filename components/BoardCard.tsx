@@ -1,16 +1,22 @@
-import React from "react";
+import React, { ReactNode, MouseEvent } from "react";
 
 interface BoardCardProps {
-  title: string;
+  children: ReactNode;
+  onClickAction: (event: MouseEvent<HTMLSpanElement>) => void;
 }
 
-const BoardCard: React.FC<BoardCardProps> = ({ title }) => {
+const BoardCard: React.FC<BoardCardProps> = ({ children, onClickAction }) => {
   return (
-    <div className="card bg-base-120 w-64 h-64 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-      <div className="card-body flex items-center justify-center">
-        <h2 className="card-title text-center text-neutral">{title}</h2>
+    <span className="cursor-pointer">
+      <div
+        className="card card-bordered border-primary-content bg-base-120 w-64 h-64 hover:shadow-xl transition-all duration-300 hover:bg-primary-content active:translate-y-1"
+        onClick={onClickAction}
+      >
+        <div className="card-body flex items-center justify-center">
+          {children}
+        </div>
       </div>
-    </div>
+    </span>
   );
 };
 

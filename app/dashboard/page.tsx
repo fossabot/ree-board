@@ -6,7 +6,9 @@ export default async function Dashboard() {
   return (
     <>
       <NavBar />
-      <BoardCard title="2024/07/30 Retro" />
+      <BoardCard>
+        <h2 className="card-title text-center select-none">Test</h2>
+      </BoardCard>
     </>
   );
 }
