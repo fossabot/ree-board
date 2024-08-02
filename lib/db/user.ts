@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 import { userTable } from "@/db/schema";
 import { db } from "./client";
 
-export async function findUserIdByKindeId(kindeId: string) {
+export async function findUserIdByKindeID(kindeId: string) {
   const result = await db
     .select({ id: userTable.id })
     .from(userTable)
@@ -25,3 +25,11 @@ export async function createUser(user: typeof userTable.$inferInsert) {
     email: user.email,
   });
 }
+
+export const getUserByKindeID = async (kindeId: string) => {
+  const result = await db
+    .select()
+    .from(userTable)
+    .where(eq(userTable.kinde_id, kindeId));
+  return result.length > 0 ? result[0] : undefined;
+};

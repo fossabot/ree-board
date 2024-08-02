@@ -6,7 +6,7 @@ import {
 } from "@/db/schema";
 import { db } from "./client";
 import { eq } from "drizzle-orm";
-import { findUserIdByKindeId } from "./user";
+import { findUserIdByKindeID } from "./user";
 import { addUserToBoard } from "./boardUser";
 
 export async function fetchBoards(userId: string, useKindeId: boolean = true) {
@@ -34,7 +34,7 @@ export async function fetchBoards(userId: string, useKindeId: boolean = true) {
 type NewBoard = typeof boardTable.$inferInsert;
 
 export async function createBoard(newBoard: NewBoard, kindeId: string) {
-  const userId = await findUserIdByKindeId(kindeId);
+  const userId = await findUserIdByKindeID(kindeId);
   const board = await db
     .insert(boardTable)
     .values({
