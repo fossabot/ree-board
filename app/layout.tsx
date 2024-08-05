@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-          <main id="app" className="flex flex-col">
+          <main id="app" className="flex flex-col" data-theme="light">
             <div className="flex-grow-1 mt-5">{children}</div>
           </main>
       </body>

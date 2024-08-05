@@ -7,6 +7,6 @@ export default async function Home() {
   if (!isUserAuthenticated) {
     redirect('/api/auth/login')
   } else {
-    redirect('/dashboard')
+    redirect('/board')
   }
 }
