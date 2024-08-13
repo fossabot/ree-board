@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 
 interface BoardCardProps {
   children: ReactNode;
@@ -37,13 +37,22 @@ const BoardCard: React.FC<BoardCardProps> = ({ children, boardID = -1 }) => {
         <dialog id="new_board_modal" className="modal">
           <div className="modal-box">
             <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
             </form>
-            <h3 className="font-bold text-lg">Hello!</h3>
-            <p className="py-4">Press ESC key or click on ✕ button to close</p>
+            <form action="" method="post">
+              <h3 className="font-bold text-lg mb-4">Create New Board</h3>
+              <input
+                type="text"
+                name="title"
+                id="new_board_title"
+                placeholder="Please enter board name"
+                className="input input-bordered w-full my-2"
+                required
+              />
+              <button type="submit" className="btn btn-primary w-full my-2">Create</button>
+            </form>
           </div>
         </dialog>
       )}

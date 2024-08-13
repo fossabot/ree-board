@@ -27,7 +27,9 @@ export default async function Dashboard() {
     <>
       <NavBar />
       <BoardCard boardID={-1}>
-        <FontAwesomeIcon className="text-3xl" icon={faSquarePlus} />
+        <div className="size-4/6 place-content-center">
+          <FontAwesomeIcon className="text-3xl" icon={faSquarePlus} />
+        </div>
       </BoardCard>
       {boards.map((board) => (
         <BoardCard key={board.board.id} boardID={board.board.id}>
