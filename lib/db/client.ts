@@ -3,7 +3,7 @@ import { createClient } from "@libsql/client";
 
 const dbUrl =
   process.env.NODE_ENV === "development"
-    ? "file:test.db"
+    ? "http://127.0.0.1:8080"
     : process.env.TURSO_DATABASE_URL!;
 
 if (dbUrl == undefined) {

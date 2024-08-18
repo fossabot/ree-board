@@ -15,7 +15,13 @@ Retro Board build using [Next.js](https://nextjs.org/), [TailwindCSS](https://ta
 pnpm i
 ```
 
-1. Run the development server:
+2. start local turso
+
+```bash
+turso dev --db-file test.db
+```
+
+3. Run the development server:
 
 ```bash
 pnpm dev
