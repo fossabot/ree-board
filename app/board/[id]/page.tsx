@@ -1,21 +1,17 @@
+import BoardSection from "@/components/BoardSection";
 import NavBar from "@/components/NavBar";
-import { boardTable, postTable } from "@/db/schema";
+import { boardTable, postTable, PostType } from "@/db/schema";
 import { db } from "@/lib/db/client";
+import { fetchPostsByBoardID } from "@/lib/db/post";
+import { postsSignal } from "@/lib/signal/post";
 import { eq } from "drizzle-orm";
 import { unstable_cache } from "next/cache";
 import React from "react";
 
-const retrieveCachedBoard = unstable_cache(
-  async (boardID) => {
-    return await db
-      .select()
-      .from(boardTable)
-      .innerJoin(postTable, eq(postTable.boardId, boardTable.id))
-      .where(eq(boardTable.id, boardID))
-      .execute();
-  },
-  ["board_posts"]
-);
+const fetchInitialPosts = async (boardId: string) => {
+  const posts = await fetchPostsByBoardID(+boardId);
+  postsSignal.value = posts;
+};
 
 interface BoardPageProps {
   params: { id: string };
@@ -24,36 +20,24 @@ interface BoardPageProps {
 export default async function BoardPage({ params }: BoardPageProps) {
   const boardID = params.id;
 
-  const board = await retrieveCachedBoard(boardID);
-
-  if (!board) {
-    return (
-      <>
-        <div>Board not found</div>
-        <a href="/board">return to board view</a>
-      </>
-    );
-  }
+  fetchInitialPosts(boardID);
 
   return (
     <>
       <NavBar />
-      <div className="container mx-auto w-full max-w-full px-4 min-h-[80vh]">
-        <div className="flex w-full h-full min-h-[80vh]">
-          <div className="card bg-base-300 rounded-box grid flex-grow place-items-center">
-            went_well
+      <div className="container mx-auto w-full max-w-full px-4">
+        <div className="flex flex-wrap -mx-2">
+          <div className="w-full sm:w-1/2 lg:w-1/4 px-2 mb-4">
+            <BoardSection title="Went Well" postType={PostType.went_well} />
           </div>
-          <div className="divider divider-horizontal"></div>
-          <div className="card bg-base-300 rounded-box grid flex-grow place-items-center">
-            to_improvement
+          <div className="w-full sm:w-1/2 lg:w-1/4 px-2 mb-4">
+            <BoardSection title="To Improve" postType={PostType.to_improvement} />
           </div>
-          <div className="divider divider-horizontal"></div>
-          <div className="card bg-base-300 rounded-box grid flex-grow place-items-center">
-            to_discuss
+          <div className="w-full sm:w-1/2 lg:w-1/4 px-2 mb-4">
+            <BoardSection title="To Discuss" postType={PostType.to_discuss} />
           </div>
-          <div className="divider divider-horizontal"></div>
-          <div className="card bg-base-300 rounded-box grid flex-grow place-items-center">
-            action_item
+          <div className="w-full sm:w-1/2 lg:w-1/4 px-2 mb-4">
+            <BoardSection title="Action Items" postType={PostType.action_item} />
           </div>
         </div>
       </div>
