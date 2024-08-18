@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { ReactNode, useRef } from "react";
+import React, { ReactNode } from "react";
 
 interface BoardCardProps {
   children: ReactNode;
