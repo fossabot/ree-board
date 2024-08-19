@@ -14,7 +14,7 @@ const NavBar = () => {
       </div>
       <div className="navbar-end">
         <PageLink
-          href="/dashboard"
+          href="/board"
           className="btn btn-ghost"
           tabIndex={0}
           testId="navbar-boards"
