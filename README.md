@@ -6,6 +6,7 @@ Retro Board build using [Next.js](https://nextjs.org/), [TailwindCSS](https://ta
 
 - [pnpm](https://pnpm.io/)
 - [nodejs](https://nodejs.org/) LTS version equal or greater than v20
+- [turso CLI](https://docs.turso.tech/cli/installation)
 
 ## Getting Started
 
@@ -15,13 +16,7 @@ Retro Board build using [Next.js](https://nextjs.org/), [TailwindCSS](https://ta
 pnpm i
 ```
 
-2. start local turso
-
-```bash
-turso dev --db-file test.db
-```
-
-3. Run the development server:
+2. Run the development server:
 
 ```bash
 pnpm dev
