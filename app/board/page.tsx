@@ -36,7 +36,7 @@ export default async function Boards() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user || !user.id) {
+  if (!user?.id) {
     redirect("/api/auth/login");
   }
 

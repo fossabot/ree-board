@@ -1,3 +1,5 @@
+"use server";
+
 import {
   boardTable,
   memberTable,
@@ -31,7 +33,7 @@ export async function fetchBoards(userId: string, useKindeId: boolean = true) {
   }
 }
 
-type NewBoard = typeof boardTable.$inferInsert;
+export type NewBoard = typeof boardTable.$inferInsert;
 
 export async function createBoard(newBoard: NewBoard, kindeId: string) {
   const userId = await findUserIdByKindeID(kindeId);
