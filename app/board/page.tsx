@@ -19,11 +19,11 @@ function BoardList() {
     <div className="flex flex-wrap gap-4">
       {boardsSignal.value.map((board) => (
         <div
-          key={board.board.id}
+          key={board.id}
           className="w-64 h-32 bg-blue-100 rounded-lg shadow-md flex items-center justify-center hover:bg-blue-200 transition-colors"
         >
-          <BoardCard boardID={board.board.id}>
-            <span className="text-lg font-semibold">{board.board.title}</span>
+          <BoardCard boardID={board.id}>
+            <span className="text-lg font-semibold">{board.title}</span>
           </BoardCard>
         </div>
       ))}
@@ -41,7 +41,11 @@ export default async function Boards() {
   }
 
   const boards = await getCachedBoards(user.id);
-  boardsSignal.value = boards;
+  boardsSignal.value = boards.map((b) => ({
+    id: b.board.id,
+    title: b.board.title,
+    state: b.board.state,
+  }));
 
   return (
     <div className="min-h-screen bg-gray-50">
