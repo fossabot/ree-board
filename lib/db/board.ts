@@ -52,6 +52,7 @@ export async function createBoard(newBoard: NewBoard, kindeId: string) {
       boardId: board[0].id,
       role: Role.owner,
     });
+    return board[0].id;
   } else {
     throw new Error("Failed to create board");
   }

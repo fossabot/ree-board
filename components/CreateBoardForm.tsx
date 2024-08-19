@@ -2,7 +2,7 @@
 
 import React from "react";
 import { PlusIcon } from "@heroicons/react/24/solid";
-import { boardsSignal } from "@/lib/signal/board";
+import { addBoard, removeBoard } from "@/lib/signal/board";
 import { createBoard, NewBoard } from "@/lib/db/board";
 import { BoardState } from "@/db/schema";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
@@ -15,7 +15,6 @@ export default function CreateBoardForm() {
     return null; // User not authenticated
   }
 
-
   const createNewBoard = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -23,17 +22,22 @@ export default function CreateBoardForm() {
     const title = titleInput.value;
     if (!title.trim()) return;
 
-    const newBoard: NewBoard = { title, state: BoardState.active };
+    const tempID = Date.now();
+    const newBoard: NewBoard = { id: tempID, title, state: BoardState.active };
 
     // Optimistically update the UI
-    boardsSignal.value = [
-      ...boardsSignal.value,
-      { board: { id: Date.now(), title } },
-    ];
+    addBoard({ id: tempID, ...newBoard });
     form.reset();
 
     // Here you would typically make an API call to create the board
-    await createBoard(newBoard, user.id);
+    try {
+      const newID = await createBoard(newBoard, user.id);
+      removeBoard(tempID);
+      addBoard({ id: newID, ...newBoard }); // Add the new board
+    } catch (error) {
+      console.error("Failed to create board:", error);
+      removeBoard(tempID); // Remove the temporary board from the UI if failed to create it
+    }
   };
 
   return (
