@@ -12,15 +12,21 @@ Retro Board build using [Next.js](https://nextjs.org/), [TailwindCSS](https://ta
 
 1. Install dependencies
 
-```bash
-pnpm i
-```
+  ```bash
+  pnpm i
+  ```
 
-2. Run the development server:
+2. Start local turso DB
 
-```bash
-pnpm dev
-```
+  ```bash
+  pnpm dev:sql
+  ```
+
+3. Run the development server:
+
+  ```bash
+  pnpm dev
+  ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

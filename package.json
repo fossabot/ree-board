@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "turso dev --db-file test.db && next dev",
+    "dev": "next dev",
+    "dev:sql": "turso dev --db-file test.db",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
