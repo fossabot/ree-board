@@ -1,10 +1,14 @@
 import { BoardState } from "@/db/schema";
 import { signal } from "@preact/signals-react";
+import { fetchBoards } from "@/lib/db/board";
 
 export interface Board {
   id: number;
   title: string;
   state: BoardState;
+  createdAt: Date;
+  updatedAt: Date;
+  creator: string | null;
 }
 
 // Create a signal to store the boards
@@ -15,5 +19,7 @@ export const addBoard = (newBoard: Board) => {
 };
 
 export const removeBoard = (boardId: number) => {
-  boardsSignal.value = boardsSignal.value.filter((board) => board.id !== boardId);
+  boardsSignal.value = boardsSignal.value.filter(
+    (board) => board.id !== boardId
+  );
 };

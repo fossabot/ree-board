@@ -36,7 +36,7 @@ export default function CreateBoardForm() {
       addBoard({ id: newID, ...newBoard }); // Add the new board
     } catch (error) {
       console.error("Failed to create board:", error);
-      removeBoard(tempID); // Remove the temporary board from the UI if failed to create it
+      // removeBoard(tempID); // Remove the temporary board from the UI if failed to create it
     }
   };
 
