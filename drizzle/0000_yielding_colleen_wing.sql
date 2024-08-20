@@ -1,5 +1,5 @@
 CREATE TABLE `board` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`id` text PRIMARY KEY NOT NULL,
 	`title` text NOT NULL,
 	`state` integer NOT NULL,
 	`created_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE `board` (
 CREATE TABLE `member` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`user_id` text,
-	`board_id` integer,
+	`board_id` text,
 	`role` integer NOT NULL,
 	`created_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
 	`updated_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE `post` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`content` text NOT NULL,
 	`user_id` text,
-	`board_id` integer,
+	`board_id` text,
 	`post_type` integer NOT NULL,
 	`created_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
 	`updated_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,

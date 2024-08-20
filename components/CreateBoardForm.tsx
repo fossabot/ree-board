@@ -6,6 +6,7 @@ import { addBoard, removeBoard } from "@/lib/signal/board";
 import { createBoard, NewBoard } from "@/lib/db/board";
 import { BoardState } from "@/db/schema";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { v4 as uuid } from "uuid";
 
 export default function CreateBoardForm() {
   const { user, getUser } = useKindeBrowserClient();
@@ -22,21 +23,26 @@ export default function CreateBoardForm() {
     const title = titleInput.value;
     if (!title.trim()) return;
 
-    const tempID = Date.now();
-    const newBoard: NewBoard = { id: tempID, title, state: BoardState.active };
+    const newBoardID = uuid();
+    const newBoard: NewBoard & { id: string } = {
+      id: newBoardID,
+      title,
+      state: BoardState.active,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      creator: user.id,
+    };
 
     // Optimistically update the UI
-    addBoard({ id: tempID, ...newBoard });
+    addBoard(newBoard);
     form.reset();
 
     // Here you would typically make an API call to create the board
     try {
-      const newID = await createBoard(newBoard, user.id);
-      removeBoard(tempID);
-      addBoard({ id: newID, ...newBoard }); // Add the new board
+      await createBoard(newBoard, user.id);
     } catch (error) {
       console.error("Failed to create board:", error);
-      // removeBoard(tempID); // Remove the temporary board from the UI if failed to create it
+      removeBoard(newBoardID); // Remove the temporary board from the UI if failed to create it
     }
   };
 

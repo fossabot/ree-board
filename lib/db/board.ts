@@ -29,6 +29,7 @@ export async function createBoard(newBoard: NewBoard, kindeId: string) {
   const board = await db
     .insert(boardTable)
     .values({
+      id: newBoard.id,
       title: newBoard.title,
       state: newBoard.state,
       creator: userId,

@@ -5,7 +5,7 @@ import React, { ReactNode } from "react";
 
 interface BoardCardProps {
   children: ReactNode;
-  boardID?: number;
+  boardID?: string;
 }
 
 const BoardCard: React.FC<BoardCardProps> = ({ children, boardID = -1 }) => {

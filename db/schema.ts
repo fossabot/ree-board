@@ -25,7 +25,7 @@ export enum BoardState {
 export const boardTable = sqliteTable(
   "board",
   {
-    id: integer("id").primaryKey({ autoIncrement: true }),
+    id: text("id").primaryKey(), // Use UUIDv4 for primary key
     title: text("title").notNull(),
     state: integer("state").$type<BoardState>().notNull(),
     createdAt: integer("created_at", { mode: "timestamp" })
@@ -58,7 +58,7 @@ export const postTable = sqliteTable(
     author: text("user_id").references(() => userTable.id, {
       onDelete: "set null",
     }),
-    boardId: integer("board_id").references(() => boardTable.id, {
+    boardId: text("board_id").references(() => boardTable.id, {
       onDelete: "cascade",
     }),
     type: integer("post_type").$type<PostType>().notNull(),
@@ -87,7 +87,7 @@ export const memberTable = sqliteTable(
     userId: text("user_id").references(() => userTable.id, {
       onDelete: "cascade",
     }),
-    boardId: integer("board_id").references(() => boardTable.id, {
+    boardId: text("board_id").references(() => boardTable.id, {
       onDelete: "cascade",
     }),
     role: integer("role").$type<Role>().notNull(),
