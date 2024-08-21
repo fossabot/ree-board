@@ -12,14 +12,22 @@ export interface Board {
 }
 
 // Create a signal to store the boards
-export const boardsSignal = signal<Board[]>([]);
+export const boardSignal = signal<Board[]>([]);
+
+export const boardSignalInitial = async (userID: string) => {
+  boardSignal.value = await fetchBoards(userID);
+};
 
 export const addBoard = (newBoard: Board) => {
-  boardsSignal.value = [...boardsSignal.value, newBoard];
+  boardSignal.value = [...boardSignal.value, newBoard];
 };
 
 export const removeBoard = (boardId: string) => {
-  boardsSignal.value = boardsSignal.value.filter(
-    (board) => board.id !== boardId
-  );
+  const index = boardSignal.value.findIndex((board) => board.id === boardId);
+  if (index !== -1) {
+    boardSignal.value = [
+      ...boardSignal.value.slice(0, index),
+      ...boardSignal.value.slice(index + 1),
+    ];
+  }
 };

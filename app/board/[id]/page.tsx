@@ -3,14 +3,14 @@ import NavBar from "@/components/NavBar";
 import { boardTable, postTable, PostType } from "@/db/schema";
 import { db } from "@/lib/db/client";
 import { fetchPostsByBoardID } from "@/lib/db/post";
-import { postsSignal } from "@/lib/signal/post";
+import { postSignal } from "@/lib/signal/postSignals";
 import { eq } from "drizzle-orm";
 import { unstable_cache } from "next/cache";
 import React from "react";
 
 const fetchInitialPosts = async (boardId: string) => {
   const posts = await fetchPostsByBoardID(+boardId);
-  postsSignal.value = posts;
+  postSignal.value = posts;
 };
 
 interface BoardPageProps {

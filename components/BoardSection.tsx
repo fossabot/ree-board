@@ -1,5 +1,5 @@
 import React from "react";
-import { postsSignal } from "@/lib/signal/post";
+import { postSignal } from "@/lib/signal/postSignals";
 import AddPostForm from "@/components/AddPostForm";
 import { PostType } from "@/db/schema";
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from "react";
-import { addPost, removePost } from "@/lib/signal/post";
+import { addPost, removePost } from "@/lib/signal/postSignals";
 import { PostType } from "@/db/schema";
 import { createPost } from "@/lib/db/post";
 import { PlusIcon } from '@heroicons/react/24/outline';

@@ -3,7 +3,7 @@
 import React from "react";
 import BoardCard from "./BoardCard";
 import CreateBoardForm from "./CreateBoardForm";
-import { boardsSignal } from "@/lib/signal/board";
+import { boardSignal, boardSignalInitial } from "@/lib/signal/boardSignals";
 import { useSignals } from "@preact/signals-react/runtime";
 
 export default function BoardList() {
