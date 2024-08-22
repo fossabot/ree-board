@@ -15,7 +15,7 @@ export const createPost = async (post: NewPost) => {
   return newPosts[0];
 };
 
-export const fetchPostsByBoardID = async (boardId: number) => {
+export const fetchPostsByBoardID = async (boardId: string) => {
   return await db
     .select()
     .from(postTable)

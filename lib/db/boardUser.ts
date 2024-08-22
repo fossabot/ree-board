@@ -12,7 +12,7 @@ export const addUserToBoard = async (newMember: NewMember) => {
   });
 };
 
-export const removeUserFromBoard = async (userID: string, boardID: number) => {
+export const removeUserFromBoard = async (userID: string, boardID: string) => {
   await db
     .delete(memberTable)
     .where(
