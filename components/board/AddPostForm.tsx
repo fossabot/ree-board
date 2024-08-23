@@ -6,6 +6,8 @@ import { PostType } from "@/db/schema";
 import { createPost } from "@/lib/db/post";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useAddPostForm } from "@/components/board/BoardProvider";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { findUserIdByKindeID } from "@/lib/db/user";
 
 interface AddPostFormProps {
   postType: PostType;
@@ -19,14 +21,25 @@ export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
   const formId = `${boardID}-${postType}`;
   const isAdding = openFormId === formId;
 
+  const { user } = useKindeBrowserClient();
+
+  if (!user) {
+    return null; // User not authenticated
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!content.trim()) return;
 
+    console.log(e)
+
+    const userId = await findUserIdByKindeID(user.id);
     const newPost = {
       id: Date.now(),
       content,
       type: postType,
+      author: userId,
+      boardId: boardID,
     };
 
     addPost(newPost);
@@ -35,6 +48,8 @@ export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
       const createdPost = await createPost({
         content,
         type: postType,
+        author: userId,
+        boardId: boardID,
       });
       addPost(createdPost);
     } catch (error) {
