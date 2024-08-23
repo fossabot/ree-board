@@ -6,7 +6,7 @@ import PageLink from "./PageLink";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 import NavBarItem from "./NavBarItem";
 
-const NavBar = () => {
+export default function NavBar() {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -29,4 +29,3 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;

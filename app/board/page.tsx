@@ -3,7 +3,7 @@ import React from "react";
 import { redirect } from "next/navigation";
 
 import BoardList from "@/components/home/BoardList";
-import NavBar from "@/components/common/NavBar";
+import { NavBar } from "@/components/common";
 
 export default async function Boards() {
   const { getUser } = getKindeServerSession();

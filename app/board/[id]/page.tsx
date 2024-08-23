@@ -1,6 +1,6 @@
-import BoardGrid from "@/components/board/BoardGrid";
+import { BoardGrid } from "@/components/board";
 import { BoardProvider } from "@/components/board/BoardProvider";
-import NavBar from "@/components/common/NavBar";
+import { NavBar } from "@/components/common";
 import { fetchPostsByBoardID } from "@/lib/db/post";
 import { postSignal } from "@/lib/signal/postSignals";
 import React from "react";

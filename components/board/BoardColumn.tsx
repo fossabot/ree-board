@@ -4,7 +4,7 @@ import AddPostForm from "@/components/board/AddPostForm";
 import { PostType } from "@/db/schema";
 import PostCard from "./PostCard";
 
-export default function BoardSection({
+export default function BoardColumn({
   boardID,
   title,
   postType,
