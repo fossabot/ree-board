@@ -1,14 +1,23 @@
-'use client';
+"use client";
 
 import React, { useState } from "react";
 import { addPost, removePost } from "@/lib/signal/postSignals";
 import { PostType } from "@/db/schema";
 import { createPost } from "@/lib/db/post";
-import { PlusIcon } from '@heroicons/react/24/outline';
+import { PlusIcon } from "@heroicons/react/24/outline";
+import { useAddPostForm } from '@/components/board/BoardProvider';
 
-export default function AddPostForm({ postType }: { postType: PostType }) {
-  const [isAdding, setIsAdding] = useState(false);
+interface AddPostFormProps {
+  postType: PostType;
+  boardID: string;
+}
+
+export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
+  const { openFormId, setOpenFormId } = useAddPostForm();
   const [content, setContent] = useState("");
+
+  const formId = `${boardID}-${postType}`;
+  const isAdding = openFormId === formId;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,13 +42,12 @@ export default function AddPostForm({ postType }: { postType: PostType }) {
     }
 
     setContent("");
-    setIsAdding(false);
   };
 
   if (!isAdding) {
     return (
       <button
-        onClick={() => setIsAdding(true)}
+        onClick={() => setOpenFormId(formId)}
         className="flex items-center justify-center w-full p-2 text-gray-600 hover:bg-gray-200 rounded-md transition-colors duration-200 ease-in-out"
       >
         <PlusIcon className="h-5 w-5 mr-2" />
@@ -49,7 +57,10 @@ export default function AddPostForm({ postType }: { postType: PostType }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-2 bg-white p-2 rounded-md shadow-md transition-all duration-200 ease-in-out">
+    <form
+      onSubmit={handleSubmit}
+      className="mt-2 bg-white p-2 rounded-md shadow-md transition-all duration-200 ease-in-out"
+    >
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
