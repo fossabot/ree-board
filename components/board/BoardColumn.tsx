@@ -25,7 +25,7 @@ export default function BoardColumn({
           .map((post) => (
             <PostCard
               key={0}
-              postContent={post.content}
+              content={post.content}
             />
           ))}
       </div>
