@@ -1,3 +1,5 @@
+"use server";
+
 import { postTable } from "@/db/schema";
 import { db } from "./client";
 import { eq } from "drizzle-orm";
