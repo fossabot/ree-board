@@ -26,13 +26,13 @@ export const GET = async function board(
     }
 
     // Check if the user has permission to access the board
-    const hasPermission = await checkPermissions(+boardID, user.id, Role.guest);
+    const hasPermission = await checkPermissions(boardID, user.id, Role.guest);
     if (!hasPermission) {
       return NextResponse.json({ error: "Access denied", status: 403 });
     }
 
     // Fetch and return the board data
-    const boardData = await db.select().from(boardTable).where(eq(boardTable.id, +boardID));
+    const boardData = await db.select().from(boardTable).where(eq(boardTable.id, boardID));
 
     return NextResponse.json({ board: boardData }, res);
   } catch (error: unknown) {
@@ -48,7 +48,7 @@ export const GET = async function board(
 };
 
 const checkPermissions = async (
-  boardID: number,
+  boardID: string,
   userID: string,
   minimalRole: Role
 ): Promise<boolean> => {
