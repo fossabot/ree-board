@@ -63,7 +63,7 @@ export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
     return (
       <button
         onClick={() => setOpenFormId(formId)}
-        className="flex items-center justify-center w-full p-2 text-gray-600 hover:bg-gray-200 rounded-md transition-colors duration-200 ease-in-out"
+        className="flex items-center justify-center w-full p-2 my-2 text-gray-600 hover:bg-gray-200 rounded-md transition-colors duration-200 ease-in-out"
       >
         <PlusIcon className="h-5 w-5 mr-2" />
         <span>Add a post</span>

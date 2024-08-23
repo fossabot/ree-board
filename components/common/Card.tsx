@@ -40,7 +40,7 @@ const Card: React.FC<CardProps> = ({
                 ? "w-full h-24"
                 : "w-64 h-32 sm:w-56 sm:h-28 md:w-64 md:h-32"
             }`,
-    post: "bg-yellow-100 hover:bg-yellow-200 w-full min-h-[80px]",
+    post: "bg-yellow-100 hover:bg-yellow-200 w-full min-h-[80px] my-2",
   };
 
   const classes = `${baseClasses} ${variantClasses[variant]} ${className}`;
