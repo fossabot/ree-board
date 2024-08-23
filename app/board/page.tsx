@@ -2,8 +2,8 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import React from "react";
 import { redirect } from "next/navigation";
 
-import BoardList from "@/components/BoardList";
-import NavBar from "@/components/NavBar";
+import BoardList from "@/components/home/BoardList";
+import NavBar from "@/components/common/NavBar";
 
 export default async function Boards() {
   const { getUser } = getKindeServerSession();

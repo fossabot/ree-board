@@ -1,6 +1,6 @@
 import React from "react";
 import { postSignal } from "@/lib/signal/postSignals";
-import AddPostForm from "@/components/AddPostForm";
+import AddPostForm from "@/components/board/AddPostForm";
 import { PostType } from "@/db/schema";
 import PostCard from "./PostCard";
 

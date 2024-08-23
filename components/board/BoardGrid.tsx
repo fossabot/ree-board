@@ -1,5 +1,5 @@
 import React from "react";
-import BoardSection from "@/components/BoardSection";
+import BoardSection from "@/components/board/BoardSection";
 import { PostType } from "@/db/schema";
 
 interface BoardGridProps {

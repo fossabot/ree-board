@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect } from "react";
-import BoardCard from "./BoardCard";
-import CreateBoardForm from "./CreateBoardForm";
+import BoardCard from "./home/BoardCard";
+import CreateBoardForm from "./home/CreateBoardForm";
 import { boardSignal, boardSignalInitial } from "@/lib/signal/boardSignals";
 import { useSignals } from "@preact/signals-react/runtime";
 
