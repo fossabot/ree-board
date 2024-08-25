@@ -20,10 +20,10 @@ CREATE TABLE `member` (
 );
 --> statement-breakpoint
 CREATE TABLE `post` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`id` text PRIMARY KEY NOT NULL,
 	`content` text NOT NULL,
 	`user_id` text,
-	`board_id` text,
+	`board_id` text NOT NULL,
 	`post_type` integer NOT NULL,
 	`created_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
 	`updated_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,

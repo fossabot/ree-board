@@ -53,14 +53,14 @@ export enum PostType {
 export const postTable = sqliteTable(
   "post",
   {
-    id: integer("id").primaryKey({ autoIncrement: true }),
+    id: text("id").primaryKey(),
     content: text("content").notNull(),
     author: text("user_id").references(() => userTable.id, {
       onDelete: "set null",
     }),
     boardId: text("board_id").references(() => boardTable.id, {
       onDelete: "cascade",
-    }),
+    }).notNull(),
     type: integer("post_type").$type<PostType>().notNull(),
     createdAt: integer("created_at", { mode: "timestamp" })
       .notNull()

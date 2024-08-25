@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
+
 import { addPost, removePost } from "@/lib/signal/postSignals";
 import { PostType } from "@/db/schema";
 import { createPost } from "@/lib/db/post";
@@ -34,26 +36,24 @@ export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
     console.log(e)
 
     const userId = await findUserIdByKindeID(user.id);
+    const postId = uuid();
     const newPost = {
-      id: Date.now(),
+      id: postId,
       content,
       type: postType,
       author: userId,
       boardId: boardID,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     addPost(newPost);
 
     try {
-      const createdPost = await createPost({
-        content,
-        type: postType,
-        author: userId,
-        boardId: boardID,
-      });
-      addPost(createdPost);
+      await createPost(newPost);
     } catch (error) {
       console.error("Failed to add post:", error);
+      removePost(postId); // Remove the temporary post from the UI if failed to create it
     }
 
     setContent("");

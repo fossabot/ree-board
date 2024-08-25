@@ -12,7 +12,7 @@ export async function findUserIdByKindeID(kindeId: string) {
     return result[0].id;
   } else {
     console.error(`User with Kinde ID "${kindeId}" not found`);
-    return undefined;
+    return null;
   }
 }
 

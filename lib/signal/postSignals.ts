@@ -3,8 +3,12 @@ import { PostType } from "@/db/schema";
 import { fetchPostsByBoardID } from "@/lib/db/post";
 
 export interface Post {
-  id: number;
+  id: string;
   content: string;
+  createdAt: Date;
+  author: string | null;
+  updatedAt: Date;
+  boardId: string;
   type: PostType;
 }
 
@@ -18,7 +22,7 @@ export const addPost = (newPost: Post) => {
   postSignal.value = [...postSignal.value, newPost];
 };
 
-export const removePost = (postID: number) => {
+export const removePost = (postID: string) => {
   const index = postSignal.value.findIndex((post) => post.id === postID);
   if (index !== -1) {
     postSignal.value = [

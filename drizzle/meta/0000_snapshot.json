@@ -179,10 +179,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": true
+          "autoincrement": false
         },
         "content": {
           "name": "content",
@@ -202,7 +202,7 @@
           "name": "board_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "post_type": {

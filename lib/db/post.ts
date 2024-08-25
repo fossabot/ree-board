@@ -8,10 +8,13 @@ type NewPost = typeof postTable.$inferInsert;
 
 export const createPost = async (post: NewPost) => {
   const newPosts = await db.insert(postTable).values({
+    id: post.id,
     content: post.content,
     author: post.author,
     boardId: post.boardId,
     type: post.type,
+    createdAt: post.createdAt,
+    updatedAt: post.updatedAt,
   }).returning();
 
   return newPosts[0];
