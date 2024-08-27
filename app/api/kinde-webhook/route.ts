@@ -17,7 +17,6 @@ type KindeUserEventData = {
 };
 
 export async function POST(req: Request) {
-  console.log("Req:", req);
   try {
     // Get the token from the request
     const token = await req.text();
@@ -27,7 +26,6 @@ export async function POST(req: Request) {
     if (decodedToken == null ) {
       return NextResponse.json({ message: "Invalid token" }, { status: 401 });
     }
-    console.log("Decoded token:", decodedToken);
     const { header } = decodedToken;
     const { kid } = header;
 
