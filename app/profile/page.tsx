@@ -1,6 +1,6 @@
 import { NavBar } from "@/components/common";
 import ProfileInfo from "@/components/profile/ProfileInfo";
-import ProfileUpdateForm from "@/components/profile/ProfileUpdateForm";
+// import ProfileUpdateForm from "@/components/profile/ProfileUpdateForm";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -22,12 +22,12 @@ export default async function ProfilePage() {
           <div className="bg-white shadow-md rounded-lg p-6 mb-4">
             <h1 className="text-2xl font-bold mb-4">Profile</h1>
             <ProfileInfo user={user} />
-            <ProfileUpdateForm
+            {/* <ProfileUpdateForm
               initialUsername={user?.given_name || ""}
               initialName={`${user?.given_name || ""} ${
                 user?.family_name || ""
               }`}
-            />
+            /> */}
           </div>
         </div>
       </div>
