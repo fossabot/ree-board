@@ -21,6 +21,14 @@ export default function NavBar() {
         >
           Boards
         </PageLink>
+        <PageLink
+          href="/profile"
+          className="btn btn-ghost"
+          tabIndex={0}
+          testId="navbar-profile"
+        >
+          Profile
+        </PageLink>
         <NavBarItem tabIndex={0} testId="navbar-logout">
           <LogoutLink>Logout</LogoutLink>
         </NavBarItem>
