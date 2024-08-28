@@ -1,8 +1,9 @@
+import { createUser, deleteUser, findUserIdByKindeID } from "@/lib/db/user";
+import { getKindeUser } from "@/lib/utils/kinde";
+import jwt from "jsonwebtoken";
+import jwksClient from "jwks-rsa";
 import { NextResponse } from "next/server";
 import { v4 as uuid } from "uuid";
-import jwksClient from "jwks-rsa";
-import jwt from "jsonwebtoken";
-import { createUser, deleteUser, findUserIdByKindeID } from "@/lib/db/user";
 
 // The Kinde issuer URL should already be in your `.env` file
 // from when you initially set up Kinde. This will fetch your
@@ -23,7 +24,7 @@ export async function POST(req: Request) {
 
     // Decode the token
     const decodedToken = jwt.decode(token, { complete: true });
-    if (decodedToken == null ) {
+    if (decodedToken == null) {
       return NextResponse.json({ message: "Invalid token" }, { status: 401 });
     }
     const { header } = decodedToken;
@@ -38,35 +39,40 @@ export async function POST(req: Request) {
       data: KindeUserEventData;
     };
 
-    // Handle various events
+    const kindUser = await getKindeUser(event.data.user.id);
+    if (!kindUser) {
+      return NextResponse.json(
+        { message: "Invalid Kinde user" },
+        { status: 401 }
+      );
+    }
+
+    const createNewUser = async () => {
+      const userID = uuid();
+      await createUser({
+        id: userID,
+        kinde_id: event.data.user.id,
+        name: kindUser.username ?? `User_${userID}`,
+        email: kindUser.email ?? `user_${event.data.user.id}@kinde.com`,
+      });
+      console.log(`Created new user ${event.data.user.id}`);
+    };
+
     switch (event?.type) {
       case "user.authenticated":
         const user = await findUserIdByKindeID(event.data.user.id);
         if (!user) {
-          // Create new user if not found
-          await createUser({
-            id: uuid(), // Generate a unique ID for the user
-            kinde_id: event.data.user.id,
-            name: event.data.authorization.org_code,
-            email: `user_${event.data.user.id}@kinde.com`,
-          });
-          console.log(`Created new user ${event.data.user.id}`);
+          await createNewUser();
         }
         break;
       case "user.updated":
         console.log("Data: ", event.data);
         break;
       case "user.created":
-        await createUser({
-          id: uuid(), // Generate a unique ID for the user
-          kinde_id: event.data.user.id,
-          name: event.data.authorization.org_code,
-          email: `user_${event.data.user.id}@kinde.com`,
-        });
-        console.log(`Created new user ${event.data.user.id}`);
+        await createNewUser();
         break;
       case "user.deleted":
-        deleteUser(event.data.user.id).catch((err) =>
+        await deleteUser(event.data.user.id).catch((err) =>
           console.error(`Error deleting user ${event.data.user.id}:`, err)
         );
         break;
