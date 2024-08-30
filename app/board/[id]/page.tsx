@@ -1,4 +1,4 @@
-import { BoardGrid } from "@/components/board";
+import { BoardAccess, BoardGrid } from "@/components/board";
 import { BoardProvider } from "@/components/board/BoardProvider";
 import { NavBar } from "@/components/common";
 import { fetchPostsByBoardID } from "@/lib/db/post";
@@ -24,6 +24,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
       <NavBar />
       <BoardProvider>
         <div className="container mx-auto w-full max-w-full px-4">
+          <BoardAccess boardId={boardID}/>
           <BoardGrid boardID={boardID} />
         </div>
       </BoardProvider>

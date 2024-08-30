@@ -20,3 +20,15 @@ export const removeMember = async (userID: string, boardID: string) => {
     )
     .execute();
 };
+
+export const fetchMembersByBoardID = async (boardID: string) => {
+  return await db
+    .select({
+      id: memberTable.id,
+      userId: memberTable.userId,
+      role: memberTable.role,
+      updateAt: memberTable.updatedAt,
+    })
+    .from(memberTable)
+    .where(eq(memberTable.boardId, boardID));
+}
