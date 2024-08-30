@@ -33,6 +33,9 @@ export type NewBoard = typeof boardTable.$inferInsert;
 
 export async function createBoard(newBoard: NewBoard, kindeId: string) {
   const userId = await findUserIdByKindeID(kindeId);
+  if (userId === null) {
+    throw new Error("User not found");
+  }
   const board = await db
     .insert(boardTable)
     .values({

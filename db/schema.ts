@@ -86,10 +86,10 @@ export const memberTable = sqliteTable(
     id: integer("id").primaryKey({ autoIncrement: true }),
     userId: text("user_id").references(() => userTable.id, {
       onDelete: "cascade",
-    }),
+    }).notNull(),
     boardId: text("board_id").references(() => boardTable.id, {
       onDelete: "cascade",
-    }),
+    }).notNull(),
     role: integer("role").$type<Role>().notNull(),
     createdAt: integer("created_at", { mode: "timestamp" })
       .notNull()

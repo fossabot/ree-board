@@ -10,8 +10,8 @@ CREATE TABLE `board` (
 --> statement-breakpoint
 CREATE TABLE `member` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`user_id` text,
-	`board_id` text,
+	`user_id` text NOT NULL,
+	`board_id` text NOT NULL,
 	`role` integer NOT NULL,
 	`created_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
 	`updated_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
