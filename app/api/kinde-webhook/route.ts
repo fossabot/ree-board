@@ -39,15 +39,12 @@ export async function POST(req: Request) {
       data: KindeUserEventData;
     };
 
-    const kindUser = await getKindeUser(event.data.user.id);
-    if (!kindUser) {
-      return NextResponse.json(
-        { message: "Invalid Kinde user" },
-        { status: 401 }
-      );
-    }
-
     const createNewUser = async () => {
+      const kindUser = await getKindeUser(event.data.user.id);
+      if (!kindUser) {
+        return Error("Failed to fetch Kinde user");
+      }
+
       const userID = uuid();
       await createUser({
         id: userID,
