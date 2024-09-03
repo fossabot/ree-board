@@ -1,4 +1,4 @@
-import { createUser, deleteUser, findUserIdByKindeID } from "@/lib/db/user";
+import { createUser, deleteUser, getUserByKindeID } from "@/lib/db/user";
 import { getKindeUser } from "@/lib/utils/kinde";
 import jwt from "jsonwebtoken";
 import jwksClient from "jwks-rsa";
@@ -57,7 +57,7 @@ export async function POST(req: Request) {
 
     switch (event?.type) {
       case "user.authenticated":
-        const user = await findUserIdByKindeID(event.data.user.id);
+        const user = await getUserByKindeID(event.data.user.id);
         if (!user) {
           await createNewUser();
         }
