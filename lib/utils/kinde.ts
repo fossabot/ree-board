@@ -1,6 +1,6 @@
 "use server";
 
-import { Users } from "@kinde/management-api-js";
+import { Users, init } from "@kinde/management-api-js";
 
 /**
  * Fetch a Kinde user by their ID.
@@ -11,6 +11,7 @@ import { Users } from "@kinde/management-api-js";
  * and properly configured with your Kinde management API credentials.
  **/
 export const getKindeUser = async (kindeId: string) => {
+  init(); // Initialize the Kinde management API client
   const { users } = await Users.getUsers({ userId: kindeId });
   if (users && users.length > 0) {
     return users[0];
