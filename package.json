@@ -22,6 +22,7 @@
     "@kinde/management-api-js": "^0.9.0",
     "@libsql/client": "^0.9.0",
     "@preact/signals-react": "^2.2.0",
+    "@vercel/speed-insights": "^1.0.12",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.33.0",
     "jsonwebtoken": "^9.0.2",

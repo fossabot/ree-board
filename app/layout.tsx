@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,6 +18,7 @@ export default function RootLayout({
           <main id="app" className="flex flex-col" data-theme="light">
             <div className="flex-grow-1">{children}</div>
           </main>
+          <SpeedInsights />
       </body>
     </html>
   );
