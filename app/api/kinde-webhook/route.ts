@@ -50,7 +50,7 @@ export async function POST(req: Request) {
         id: userID,
         kinde_id: event.data.user.id,
         name: kindUser.username ?? `User_${userID}`,
-        email: kindUser.email ?? `user_${event.data.user.id}@kinde.com`,
+        email: kindUser.preferred_email ?? `user_${event.data.user.id}@kinde.com`,
       });
       console.log(`Created new user ${event.data.user.id}`);
     };
