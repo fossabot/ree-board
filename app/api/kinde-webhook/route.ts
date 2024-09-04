@@ -62,9 +62,6 @@ export async function POST(req: Request) {
           await createNewUser();
         }
         break;
-      case "user.updated":
-        console.log("Data: ", event.data);
-        break;
       case "user.created":
         await createNewUser();
         break;
