@@ -1,7 +1,6 @@
-import { config } from "dotenv";
 import { defineConfig } from "drizzle-kit";
 
-config({ path: ".env" });
+import './envConfig'
 
 export default defineConfig(
   process.env.NODE_ENV === "development"
