@@ -32,3 +32,13 @@ export const fetchMembersByBoardID = async (boardID: string) => {
     .from(memberTable)
     .where(eq(memberTable.boardId, boardID));
 }
+
+export const checkMemberRole = async (userID: string, boardID: string) => {
+  const member = await db
+    .select()
+    .from(memberTable)
+   .where(
+      and(eq(memberTable.userId, userID), eq(memberTable.boardId, boardID))
+    );
+  return member? member[0].role : null;
+}
