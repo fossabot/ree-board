@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { v4 as uuid } from "uuid";
+import { nanoid } from "nanoid";
 
 import { addPost, removePost } from "@/lib/signal/postSignals";
 import { PostType } from "@/db/schema";
@@ -33,10 +33,8 @@ export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
     e.preventDefault();
     if (!content.trim()) return;
 
-    console.log(e)
-
     const userId = await findUserIdByKindeID(user.id);
-    const postId = uuid();
+    const postId = nanoid();
     const newPost = {
       id: postId,
       content,

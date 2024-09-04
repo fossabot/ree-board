@@ -6,7 +6,7 @@ import { addBoard, removeBoard } from "@/lib/signal/boardSignals";
 import { createBoard, NewBoard } from "@/lib/db/board";
 import { BoardState } from "@/db/schema";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { v4 as uuid } from "uuid";
+import { nanoid } from "nanoid";
 
 export default function CreateBoardForm() {
   const { user, getUser } = useKindeBrowserClient();
@@ -23,7 +23,7 @@ export default function CreateBoardForm() {
     const title = titleInput.value;
     if (!title.trim()) return;
 
-    const newBoardID = uuid();
+    const newBoardID = nanoid();
     const newBoard: NewBoard & { id: string } = {
       id: newBoardID,
       title,

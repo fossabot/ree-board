@@ -3,7 +3,7 @@ import { getKindeUser } from "@/lib/utils/kinde";
 import jwt from "jsonwebtoken";
 import jwksClient from "jwks-rsa";
 import { NextResponse } from "next/server";
-import { v4 as uuid } from "uuid";
+import { nanoid } from "nanoid";
 
 // The Kinde issuer URL should already be in your `.env` file
 // from when you initially set up Kinde. This will fetch your
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
         return Error("Failed to fetch Kinde user");
       }
 
-      const userID = uuid();
+      const userID = nanoid();
       await createUser({
         id: userID,
         kinde_id: event.data.user.id,

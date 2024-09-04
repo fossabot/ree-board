@@ -4,7 +4,7 @@ import { text, sqliteTable, integer, index } from "drizzle-orm/sqlite-core";
 export const userTable = sqliteTable(
   "user",
   {
-    id: text("id").primaryKey(), // Use UUIDv4 for primary key
+    id: text("id").primaryKey(), // Use Nano ID for primary key
     name: text("name").notNull().unique(),
     kinde_id: text("kinde_id").notNull().unique(),
     email: text("email").notNull().unique(),
@@ -25,7 +25,7 @@ export enum BoardState {
 export const boardTable = sqliteTable(
   "board",
   {
-    id: text("id").primaryKey(), // Use UUIDv4 for primary key
+    id: text("id").primaryKey(), // Use Nano ID for primary key
     title: text("title").notNull(),
     state: integer("state").$type<BoardState>().notNull(),
     createdAt: integer("created_at", { mode: "timestamp" })
