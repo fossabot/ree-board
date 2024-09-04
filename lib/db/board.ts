@@ -1,10 +1,10 @@
 "use server";
 
-import { boardTable, memberTable, Role, userTable } from "@/db/schema";
-import { db } from "./client";
+import { boardTable, memberTable, NewBoard, Role, userTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { findUserIdByKindeID } from "./user";
+import { db } from "./client";
 import { addMember } from "./member";
+import { findUserIdByKindeID } from "./user";
 
 export async function fetchBoards(userId: string, useKindeId: boolean = true) {
   if (userId === null) {
@@ -28,8 +28,6 @@ export async function fetchBoards(userId: string, useKindeId: boolean = true) {
     return await db.select().from(boardTable).where(eq(userTable.id, userId));
   }
 }
-
-export type NewBoard = typeof boardTable.$inferInsert;
 
 export async function createBoard(newBoard: NewBoard, kindeId: string) {
   const userId = await findUserIdByKindeID(kindeId);

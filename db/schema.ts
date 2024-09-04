@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import { text, sqliteTable, integer, index } from "drizzle-orm/sqlite-core";
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 
 export const userTable = sqliteTable(
   "user",
@@ -16,6 +17,10 @@ export const userTable = sqliteTable(
     nameIdx: index("user_name_index").on(table.name),
   })
 );
+
+export const insertUserSchema = createInsertSchema(userTable);
+export const selectUserSchema = createSelectSchema(userTable);
+export type NewUser = typeof userTable.$inferInsert;
 
 export enum BoardState {
   active,
@@ -42,6 +47,10 @@ export const boardTable = sqliteTable(
     stateIdx: index("board_state_index").on(table.state),
   })
 );
+
+export const insertBoardSchema = createInsertSchema(boardTable);
+export const selectBoardSchema = createSelectSchema(boardTable);
+export type NewBoard = typeof boardTable.$inferInsert;
 
 export enum PostType {
   'went_well',
@@ -74,6 +83,10 @@ export const postTable = sqliteTable(
   })
 );
 
+export const insertPostSchema = createInsertSchema(postTable);
+export const selectPostSchema = createSelectSchema(postTable);
+export type NewPost = typeof postTable.$inferInsert;
+
 export enum Role {
   owner,
   member,
@@ -103,3 +116,7 @@ export const memberTable = sqliteTable(
     boardIdIdx: index("members_board_id_index").on(table.boardId),
   })
 );
+
+export const insertMemberSchema = createInsertSchema(memberTable);
+export const selectMemberSchema = createSelectSchema(memberTable);
+export type NewMember = typeof memberTable.$inferInsert;

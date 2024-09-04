@@ -1,8 +1,6 @@
-import { memberTable } from "@/db/schema";
+import { memberTable, NewMember } from "@/db/schema";
 import { db } from "./client";
 import { and, eq } from "drizzle-orm";
-
-type NewMember = typeof memberTable.$inferInsert;
 
 export const addMember = async (newMember: NewMember) => {
   await db.insert(memberTable).values({

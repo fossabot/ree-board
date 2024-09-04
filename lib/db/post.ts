@@ -1,10 +1,8 @@
 "use server";
 
-import { postTable } from "@/db/schema";
-import { db } from "./client";
+import { NewPost, postTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
-
-type NewPost = typeof postTable.$inferInsert;
+import { db } from "./client";
 
 export const createPost = async (post: NewPost) => {
   const newPosts = await db.insert(postTable).values({
