@@ -1,4 +1,5 @@
-import { memberTable, NewMember } from "@/db/schema";
+import type { NewMember } from "@/db/schema";
+import { memberTable } from "@/db/schema";
 import { db } from "./client";
 import { and, eq } from "drizzle-orm";
 

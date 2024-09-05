@@ -3,8 +3,8 @@
 import React from "react";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { addBoard, removeBoard } from "@/lib/signal/boardSignals";
-import { createBoard, NewBoard } from "@/lib/db/board";
-import { BoardState } from "@/db/schema";
+import { createBoard } from "@/lib/db/board";
+import { BoardState, type NewBoard } from "@/db/schema";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { nanoid } from "nanoid";
 

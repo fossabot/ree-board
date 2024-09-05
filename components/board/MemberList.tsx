@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { removeMemberFromBoard } from "@/lib/actions/boardActions";
-import { Role } from "@/db/schema";
+import type { Role } from "@/db/schema";
 
 interface Member {
   id: number;

@@ -1,5 +1,5 @@
 import { signal } from "@preact/signals-react";
-import { PostType } from "@/db/schema";
+import type { PostType } from "@/db/schema";
 import { fetchPostsByBoardID } from "@/lib/db/post";
 
 export interface Post {

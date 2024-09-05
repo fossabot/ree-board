@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { nanoid } from "nanoid";
 
 import { addPost, removePost } from "@/lib/signal/postSignals";
-import { PostType } from "@/db/schema";
+import type { PostType } from "@/db/schema";
 import { createPost } from "@/lib/db/post";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useAddPostForm } from "@/components/board/BoardProvider";

@@ -1,7 +1,8 @@
+import type { KindeUserBase } from "@kinde-oss/kinde-auth-nextjs/types";
 import Image from "next/image";
 
 interface ProfileInfoProps {
-  user: any; // Replace 'any' with a proper user type if available
+  user: KindeUserBase;
 }
 
 export default function ProfileInfo({ user }: ProfileInfoProps) {

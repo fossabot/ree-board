@@ -1,4 +1,4 @@
-import { BoardState } from "@/db/schema";
+import type { BoardState } from "@/db/schema";
 import { signal } from "@preact/signals-react";
 import { fetchBoards } from "@/lib/db/board";
 

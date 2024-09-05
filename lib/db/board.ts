@@ -1,6 +1,7 @@
 "use server";
 
-import { boardTable, memberTable, NewBoard, Role, userTable } from "@/db/schema";
+import type { NewBoard} from "@/db/schema";
+import { boardTable, memberTable, Role, userTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { db } from "./client";
 import { addMember } from "./member";

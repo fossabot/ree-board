@@ -1,6 +1,7 @@
 "use server";
 
-import { NewPost, postTable } from "@/db/schema";
+import type { NewPost} from "@/db/schema";
+import { postTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { db } from "./client";
 

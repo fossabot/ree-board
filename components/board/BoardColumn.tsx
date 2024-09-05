@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { postSignal, postSignalInitial } from "@/lib/signal/postSignals";
 import AddPostForm from "@/components/board/AddPostForm";
-import { PostType } from "@/db/schema";
+import type { PostType } from "@/db/schema";
 import PostCard from "./PostCard";
 import { useSignals } from "@preact/signals-react/runtime";
 

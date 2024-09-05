@@ -1,6 +1,7 @@
 "use client"
 
-import React, { ReactNode, useState, useEffect } from "react";
+import type { ReactNode} from "react";
+import React, { useState, useEffect } from "react";
 
 interface CardProps {
   children: ReactNode;
