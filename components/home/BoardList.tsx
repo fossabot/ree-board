@@ -19,7 +19,7 @@ export default function BoardList({ userID }: { userID: string }) {
       {boardSignal.value.map((board) => (
         <div
           key={0}
-          className="w-64 h-32 bg-blue-100 rounded-lg shadow-md flex items-center justify-center hover:bg-blue-200 transition-colors"
+          className="flex items-center justify-center"
         >
           <BoardCard id={board.id} title={board.title} />
         </div>
