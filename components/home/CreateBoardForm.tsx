@@ -36,7 +36,6 @@ export default function CreateBoardForm() {
     addBoard(newBoard);
     form.reset();
 
-    // Here you would typically make an API call to create the board
     try {
       await createBoard(newBoard, user.id);
     } catch (error) {
