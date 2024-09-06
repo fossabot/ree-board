@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { PlusIcon } from "@heroicons/react/24/solid";
 import { addBoard, removeBoard } from "@/lib/signal/boardSignals";
 import { createBoard } from "@/lib/db/board";
 import { BoardState, type NewBoard } from "@/db/schema";
@@ -20,8 +19,8 @@ export default function CreateBoardForm() {
     e.preventDefault();
     const form = e.currentTarget;
     const titleInput = form.elements.namedItem("title") as HTMLInputElement;
-    const title = titleInput.value;
-    if (!title.trim()) return;
+    const title = titleInput.value.trim();
+    if (title === "") return;
 
     const newBoardID = nanoid();
     const newBoard: NewBoard & { id: string } = {
@@ -47,19 +46,17 @@ export default function CreateBoardForm() {
   };
 
   return (
-    <form onSubmit={createNewBoard} className="w-64 h-32">
-      <button
-        type="submit"
-        className="w-full h-full bg-gray-100 rounded-lg shadow-md flex flex-col items-center justify-center hover:bg-gray-200 transition-colors"
-      >
-        <PlusIcon className="h-8 w-8 text-gray-600" />
-        <input
-          type="text"
-          name="title"
-          placeholder="Create new board"
-          className="mt-2 w-full text-center bg-transparent border-none focus:outline-none text-gray-600"
-        />
-      </button>
+    <form
+      onSubmit={createNewBoard}
+      className="w-64 h-32 bg-gray-100 rounded-lg shadow-md flex flex-col items-center justify-center hover:bg-gray-200 transition-colors"
+    >
+      <input
+        type="text"
+        name="title"
+        placeholder="Create new board"
+        className="mt-2 w-full text-center bg-transparent border-none focus:outline-none text-gray-600"
+      />
+      <button type="submit" className=""></button>
     </form>
   );
 }
