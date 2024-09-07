@@ -1,6 +1,6 @@
 "use server";
 
-import type { NewBoard} from "@/db/schema";
+import type { NewBoard } from "@/db/schema";
 import { boardTable, memberTable, Role, userTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { db } from "./client";
@@ -18,7 +18,8 @@ export async function fetchBoards(userId: string, useKindeId: boolean = true) {
         id: boardTable.id,
         title: boardTable.title,
         state: boardTable.state,
-        creator: userTable.id,
+        creator: boardTable.creator,
+        updateAt: boardTable.updatedAt,
       })
       .from(boardTable)
       .innerJoin(memberTable, eq(boardTable.id, memberTable.boardId))
@@ -26,7 +27,16 @@ export async function fetchBoards(userId: string, useKindeId: boolean = true) {
       .where(eq(userTable.kinde_id, userId));
   } else {
     // Fetch boards by user ID
-    return await db.select().from(boardTable).where(eq(userTable.id, userId));
+    return await db
+      .select({
+        id: boardTable.id,
+        title: boardTable.title,
+        state: boardTable.state,
+        creator: boardTable.creator,
+        updateAt: boardTable.updatedAt,
+      })
+      .from(boardTable)
+      .where(eq(userTable.id, userId));
   }
 }
 
