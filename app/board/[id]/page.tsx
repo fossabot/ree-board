@@ -45,7 +45,9 @@ export default async function BoardPage({ params }: BoardPageProps) {
       <NavBar />
       <BoardProvider>
         <div className="container mx-auto w-full max-w-full px-4">
-          <BoardAccess boardId={boardID}/>
+          <div className="flex justify-end">
+            <BoardAccess boardId={boardID} role={role}/>
+          </div>
           <BoardGrid boardID={boardID} />
         </div>
       </BoardProvider>

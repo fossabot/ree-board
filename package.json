@@ -22,6 +22,7 @@
     "@next/env": "^14.2.7",
     "@preact/signals-react": "^2.2.0",
     "@vercel/speed-insights": "^1.0.12",
+    "crypto-js": "^4.2.0",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.33.0",
     "drizzle-zod": "^0.5.1",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@eslint/js": "^9.9.1",
     "@tailwindcss/typography": "^0.5.15",
+    "@types/crypto-js": "^4.2.2",
     "@types/eslint__js": "^8.42.3",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^22.5.3",

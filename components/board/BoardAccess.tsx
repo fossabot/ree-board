@@ -1,22 +1,44 @@
-import { Suspense } from "react";
-import AddMemberForm from "./AddMemberForm";
-import MemberList from "./MemberList";
-import { fetchMembersByBoardID } from "@/lib/db/member"; // Assume this function exists to fetch board members
+import { Role } from "@/db/schema";
+import { fetchMembersByBoardID } from "@/lib/db/member";
+import MD5 from "crypto-js/md5";
+import Image from "next/image";
+import MemberManage from "./MemberManage";
 
 interface BoardAccessProps {
   boardId: string;
+  role: Role;
 }
 
-export default async function BoardAccess({ boardId }: BoardAccessProps) {
+export default async function BoardAccess({ boardId, role }: BoardAccessProps) {
   const members = await fetchMembersByBoardID(boardId);
+  const memberCount = members.length;
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow">
-      <h2 className="text-xl font-bold mb-4">Manage Board Access</h2>
-      <AddMemberForm boardId={boardId} />
-      <Suspense fallback={<div>Loading members...</div>}>
-        <MemberList boardId={boardId} initialMembers={members} />
-      </Suspense>
+    <div className="p-4 flex items-center justify-between">
+      <div className="avatar-group -space-x-6 rtl:space-x-reverse mr-0.5">
+        {members.slice(0, 3).map((member) => (
+          <div className="avatar" key={member.id}>
+            <div className="w-12">
+              <Image
+                src={`https://www.gravatar.com/avatar/${MD5(
+                  member.email
+                )}?d=mp&s=48`}
+                alt={`${member.username} avatar`}
+                width={48}
+                height={48}
+              />
+            </div>
+          </div>
+        ))}
+        {memberCount > 3 && (
+          <div className="avatar placeholder">
+            <div className="bg-neutral text-neutral-content w-12">
+              <span>+{memberCount - 3}</span>
+            </div>
+          </div>
+        )}
+      </div>
+      {role === Role.owner && <MemberManage boardId={boardId} />}
     </div>
   );
 }
