@@ -1,3 +1,4 @@
+import { LoadingSpinner } from "@/components/ui";
 import { PostType } from "@/db/schema";
 import React, { lazy, Suspense } from "react";
 
@@ -7,7 +8,7 @@ interface BoardGridProps {
   boardID: string;
 }
 
-const BoardGrid: React.FC<BoardGridProps> = ({ boardID }) => {
+const BoardGrid: React.FC<BoardGridProps> = async ({ boardID }) => {
   const columns = [
     { title: "Went Well", postType: PostType.went_well },
     { title: "To Improve", postType: PostType.to_improvement },
@@ -22,7 +23,7 @@ const BoardGrid: React.FC<BoardGridProps> = ({ boardID }) => {
           <Suspense
             fallback={
               <div>
-                <span className="loading loading-spinner loading-lg"></span>
+                <LoadingSpinner />
               </div>
             }
           >
