@@ -23,7 +23,7 @@ export default function CreateBoardForm() {
     if (title === "") return;
 
     const newBoardID = nanoid();
-    const newBoard: NewBoard & { id: string } = {
+    const newBoard: NewBoard & { id: string, createdAt: Date, updatedAt: Date, creator: string | null } = {
       id: newBoardID,
       title,
       state: BoardState.active,

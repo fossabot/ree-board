@@ -1,9 +1,9 @@
 "use client";
 
 import type { Post } from "@/db/schema";
-import { postSignal } from "@/lib/signal/postSignals";
+import { postSignalInitial } from "@/lib/signal/postSignals";
 import { useSignal } from "@preact/signals-react/runtime";
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 interface AddPostFormContextType {
   openFormId: string | null;
@@ -25,7 +25,7 @@ export const PostProvider: React.FC<PostProviderProps> = ({
 }) => {
   const [openFormId, setOpenFormId] = useState<string | null>(null);
 
-  postSignal.value = initialPosts;
+  postSignalInitial(initialPosts);
   useSignal();
 
   return (

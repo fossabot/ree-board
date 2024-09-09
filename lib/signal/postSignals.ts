@@ -3,7 +3,7 @@ import type { Post } from "@/db/schema";
 
 export const postSignal = signal<Post[]>([]);
 
-export const postSignalInitial = async (posts: Post[]) => {
+export const postSignalInitial = (posts: Post[]) => {
   postSignal.value = posts;
 };
 

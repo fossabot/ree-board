@@ -1,28 +1,24 @@
-"use client"
+"use client";
 
-import React, { useEffect } from "react";
-import { postSignal, postSignalInitial } from "@/lib/signal/postSignals";
 import AddPostForm from "@/components/board/AddPostForm";
 import type { PostType } from "@/db/schema";
-import PostCard from "./PostCard";
+import { postSignal } from "@/lib/signal/postSignals";
 import { useSignals } from "@preact/signals-react/runtime";
+import React from "react";
+import PostCard from "./PostCard";
+
+interface BoardColumnProps {
+  boardID: string;
+  title: string;
+  postType: PostType;
+}
 
 export default function BoardColumn({
   boardID,
   title,
   postType,
-}: {
-  boardID: string;
-  title: string;
-  postType: PostType;
-}) {
+}: BoardColumnProps) {
   useSignals();
-
-  useEffect(() => {
-    if(postSignal.value.length === 0) {
-      postSignalInitial(boardID);
-    }
-  }, [boardID])
 
   return (
     <div className="h-[calc(100vh-4rem)] w-0.25 flex flex-col bg-gray-100 rounded-lg shadow-md mx-2">

@@ -7,7 +7,7 @@ import { addPost, removePost } from "@/lib/signal/postSignals";
 import type { PostType } from "@/db/schema";
 import { createPost } from "@/lib/db/post";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { useAddPostForm } from "@/components/board/BoardProvider";
+import { useAddPostForm } from "@/components/board/PostProvider";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { findUserIdByKindeID } from "@/lib/db/user";
 
