@@ -51,6 +51,7 @@ export const boardTable = sqliteTable(
 export const insertBoardSchema = createInsertSchema(boardTable);
 export const selectBoardSchema = createSelectSchema(boardTable);
 export type NewBoard = typeof boardTable.$inferInsert;
+export type Board = typeof boardTable.$inferSelect;
 
 export enum PostType {
   'went_well',
@@ -86,6 +87,7 @@ export const postTable = sqliteTable(
 export const insertPostSchema = createInsertSchema(postTable);
 export const selectPostSchema = createSelectSchema(postTable);
 export type NewPost = typeof postTable.$inferInsert;
+export type Post = typeof postTable.$inferSelect;
 
 export enum Role {
   owner,

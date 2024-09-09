@@ -1,29 +1,21 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { boardSignal } from "@/lib/signal/boardSignals";
+import React from "react";
 import BoardCard from "./BoardCard";
-import CreateBoardForm from "./CreateBoardForm";
-import { boardSignal, boardSignalInitial } from "@/lib/signal/boardSignals";
-import { useSignals } from "@preact/signals-react/runtime";
 
-export default function BoardList({ userID }: { userID: string }) {
-  useEffect(() => {
-    boardSignalInitial(userID);
-  }, [userID]);
+interface BoardListProps {
+  userID: string;
+}
 
-  useSignals();
-
+export default function BoardList({ userID }: BoardListProps) {
   return (
-    <div className="flex flex-wrap gap-4">
-      <CreateBoardForm />
+    <>
       {boardSignal.value.map((board) => (
-        <div
-          key={0}
-          className="flex items-center justify-center"
-        >
-          <BoardCard id={board.id} title={board.title} />
+        <div key={board.id} className="flex items-center justify-center">
+          <BoardCard boardId={board.id} title={board.title} userId={userID} deletable={board.creator==userID}/>
         </div>
       ))}
-    </div>
+    </>
   );
 }
