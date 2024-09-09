@@ -1,10 +1,8 @@
-"use server";
-
-import type { NewBoard } from "@/db/schema";
+import type { Board } from "@/db/schema";
 import { boardTable, memberTable, Role, userTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { db } from "./client";
-import { addMember } from "./member";
+import { addMember, checkMemberRole } from "./member";
 import { findUserIdByKindeID } from "./user";
 
 export async function fetchBoards(userId: string, useKindeId: boolean = true) {
@@ -19,7 +17,8 @@ export async function fetchBoards(userId: string, useKindeId: boolean = true) {
         title: boardTable.title,
         state: boardTable.state,
         creator: boardTable.creator,
-        updateAt: boardTable.updatedAt,
+        updatedAt: boardTable.updatedAt,
+        createdAt: boardTable.createdAt,
       })
       .from(boardTable)
       .innerJoin(memberTable, eq(boardTable.id, memberTable.boardId))
@@ -33,14 +32,16 @@ export async function fetchBoards(userId: string, useKindeId: boolean = true) {
         title: boardTable.title,
         state: boardTable.state,
         creator: boardTable.creator,
-        updateAt: boardTable.updatedAt,
+        updatedAt: boardTable.updatedAt,
+        createdAt: boardTable.createdAt,
       })
       .from(boardTable)
       .where(eq(userTable.id, userId));
   }
 }
 
-export async function createBoard(newBoard: NewBoard, kindeId: string) {
+export async function createBoard(newBoard: Board, kindeId: string) {
+  "use server";
   const userId = await findUserIdByKindeID(kindeId);
   if (userId === null) {
     throw new Error("User not found");
@@ -65,4 +66,17 @@ export async function createBoard(newBoard: NewBoard, kindeId: string) {
   } else {
     throw new Error("Failed to create board");
   }
+}
+
+export async function deleteBoard(boardId: string, userId: string) {
+  "use server";
+  const role = await checkMemberRole(userId, boardId);
+
+  if (role === Role.owner) {
+    return await db
+     .delete(boardTable)
+     .where(eq(boardTable.id, boardId))
+     .execute();
+  }
+  return new Error("Insufficient permissions to delete board");
 }
