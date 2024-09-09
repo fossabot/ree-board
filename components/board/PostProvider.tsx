@@ -1,5 +1,8 @@
 "use client";
 
+import type { Post } from "@/db/schema";
+import { postSignal } from "@/lib/signal/postSignals";
+import { useSignal } from "@preact/signals-react/runtime";
 import React, { createContext, useState, useContext } from "react";
 
 interface AddPostFormContextType {
@@ -7,14 +10,23 @@ interface AddPostFormContextType {
   setOpenFormId: (id: string | null) => void;
 }
 
+interface PostProviderProps {
+  children: React.ReactNode;
+  initialPosts: Post[];
+}
+
 const AddPostFormContext = createContext<AddPostFormContextType | undefined>(
   undefined
 );
 
-export const BoardProvider: React.FC<{ children: React.ReactNode }> = ({
+export const PostProvider: React.FC<PostProviderProps> = ({
   children,
+  initialPosts,
 }) => {
   const [openFormId, setOpenFormId] = useState<string | null>(null);
+
+  postSignal.value = initialPosts;
+  useSignal();
 
   return (
     <AddPostFormContext.Provider value={{ openFormId, setOpenFormId }}>
@@ -26,7 +38,7 @@ export const BoardProvider: React.FC<{ children: React.ReactNode }> = ({
 export const useAddPostForm = () => {
   const context = useContext(AddPostFormContext);
   if (context === undefined) {
-    throw new Error("useAddPostForm must be used within a BoardProvider");
+    throw new Error("useAddPostForm must be used within a PostProvider");
   }
   return context;
 };
