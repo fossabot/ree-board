@@ -1,3 +1,5 @@
+"use server";
+
 import type { Board } from "@/db/schema";
 import { boardTable, memberTable, Role, userTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -41,7 +43,6 @@ export async function fetchBoards(userId: string, useKindeId: boolean = true) {
 }
 
 export async function createBoard(newBoard: Board, kindeId: string) {
-  "use server";
   const userId = await findUserIdByKindeID(kindeId);
   if (userId === null) {
     throw new Error("User not found");
@@ -69,7 +70,6 @@ export async function createBoard(newBoard: Board, kindeId: string) {
 }
 
 export async function deleteBoard(boardId: string, userId: string) {
-  "use server";
   const role = await checkMemberRole(userId, boardId);
 
   if (role === Role.owner) {
