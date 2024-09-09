@@ -5,11 +5,11 @@ import { nanoid } from "nanoid";
 
 import { addPost, removePost } from "@/lib/signal/postSignals";
 import type { PostType } from "@/db/schema";
-import { createPost } from "@/lib/db/post";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useAddPostForm } from "@/components/board/PostProvider";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { findUserIdByKindeID } from "@/lib/db/user";
+import { authenticatedCreatePost } from "@/lib/actions/authenticatedDBActions";
 
 interface AddPostFormProps {
   postType: PostType;
@@ -48,7 +48,7 @@ export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
     addPost(newPost);
 
     try {
-      await createPost(newPost);
+      await authenticatedCreatePost(newPost);
     } catch (error) {
       console.error("Failed to add post:", error);
       removePost(postId); // Remove the temporary post from the UI if failed to create it

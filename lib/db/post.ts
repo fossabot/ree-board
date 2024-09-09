@@ -1,5 +1,3 @@
-"use server";
-
 import type { NewPost} from "@/db/schema";
 import { postTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -24,5 +22,4 @@ export const fetchPostsByBoardID = async (boardId: string) => {
     .select()
     .from(postTable)
     .where(eq(postTable.boardId, boardId))
-    .orderBy(postTable.createdAt);
 };

@@ -1,5 +1,3 @@
-"use server";
-
 import type { Board } from "@/db/schema";
 import { boardTable, memberTable, Role, userTable } from "@/db/schema";
 import { eq } from "drizzle-orm";

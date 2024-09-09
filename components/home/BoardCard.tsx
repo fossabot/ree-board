@@ -3,7 +3,7 @@
 import React from "react";
 import { Card } from "@/components/common";
 import { useRouter } from "next/navigation";
-import { deleteBoard } from "@/lib/db/board";
+import { authenticatedDeleteBoard } from "@/lib/actions/authenticatedDBActions";
 
 interface BoardCardProps {
   boardId: string;
@@ -21,7 +21,7 @@ const BoardCard: React.FC<BoardCardProps> = ({ boardId, title, userId, deletable
 
   const handleDelete = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    await deleteBoard(boardId, userId);
+    await authenticatedDeleteBoard(boardId, userId);
   }
 
   return (

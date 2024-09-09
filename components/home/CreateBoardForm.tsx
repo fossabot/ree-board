@@ -2,10 +2,10 @@
 
 import React from "react";
 import { addBoard, removeBoard } from "@/lib/signal/boardSignals";
-import { createBoard } from "@/lib/db/board";
 import { BoardState, type NewBoard } from "@/db/schema";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { nanoid } from "nanoid";
+import { authenticatedCreateBoard } from "@/lib/actions/authenticatedDBActions";
 
 export default function CreateBoardForm() {
   const { user, getUser } = useKindeBrowserClient();
@@ -37,7 +37,7 @@ export default function CreateBoardForm() {
     form.reset();
 
     try {
-      await createBoard(newBoard, user.id);
+      await authenticatedCreateBoard(newBoard, user.id);
     } catch (error) {
       console.error("Failed to create board:", error);
       removeBoard(newBoardID); // Remove the temporary board from the UI if failed to create it

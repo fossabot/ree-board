@@ -1,4 +1,3 @@
-// app/actions/updateProfile.ts
 "use server";
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
