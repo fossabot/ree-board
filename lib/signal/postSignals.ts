@@ -1,21 +1,10 @@
 import { signal } from "@preact/signals-react";
-import type { PostType } from "@/db/schema";
-import { fetchPostsByBoardID } from "@/lib/db/post";
-
-export interface Post {
-  id: string;
-  content: string;
-  createdAt: Date;
-  author: string | null;
-  updatedAt: Date;
-  boardId: string;
-  type: PostType;
-}
+import type { Post } from "@/db/schema";
 
 export const postSignal = signal<Post[]>([]);
 
-export const postSignalInitial = async (boardId: string) => {
-  postSignal.value = await fetchPostsByBoardID(boardId);
+export const postSignalInitial = async (posts: Post[]) => {
+  postSignal.value = posts;
 };
 
 export const addPost = (newPost: Post) => {

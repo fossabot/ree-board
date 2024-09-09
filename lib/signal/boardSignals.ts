@@ -1,21 +1,11 @@
-import type { BoardState } from "@/db/schema";
+import type { Board } from "@/db/schema";
 import { signal } from "@preact/signals-react";
-import { fetchBoards } from "@/lib/db/board";
-
-export interface Board {
-  id: string;
-  title: string;
-  state: BoardState;
-  createdAt?: Date | undefined;
-  updatedAt?: Date | undefined;
-  creator?: string | null | undefined;
-}
 
 // Create a signal to store the boards
 export const boardSignal = signal<Board[]>([]);
 
-export const boardSignalInitial = async (userID: string) => {
-  boardSignal.value = await fetchBoards(userID);
+export const boardSignalInitial = (boards: Board[]) => {
+  boardSignal.value = boards;
 };
 
 export const addBoard = (newBoard: Board) => {
