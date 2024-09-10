@@ -3,6 +3,7 @@
 import React from "react";
 import { boardSignalInitial } from "@/lib/signal/boardSignals";
 import type { Board } from "@/db/schema";
+import { useEffectOnce } from "@/lib/utils/effect";
 
 interface BoardProviderProps {
   children: React.ReactNode;
@@ -15,7 +16,9 @@ export const BoardProvider: React.FC<BoardProviderProps> = ({
 }) => {
 
   // Initialize the boardSignal with the initial data
-  boardSignalInitial(initialBoards);
+  useEffectOnce(() => {
+    boardSignalInitial(initialBoards);
+  });
 
   return (
     <>
