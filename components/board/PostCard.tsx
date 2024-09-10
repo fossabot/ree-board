@@ -11,7 +11,7 @@ interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = ({ content, onEdit }) => {
   return (
     <Card variant="post" draggable={true}>
-      <p className="text-sm mb-2 line-clamp-3">{content}</p>
+      <p className="text-sm mb-2">{content}</p>
       {onEdit && (
         <button
           onClick={onEdit}
