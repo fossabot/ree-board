@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
 import { nanoid } from "nanoid";
+import React, { useState } from "react";
 
-import { addPost, removePost } from "@/lib/signal/postSignals";
-import type { PostType } from "@/db/schema";
-import { PlusIcon } from "@heroicons/react/24/outline";
 import { useAddPostForm } from "@/components/board/PostProvider";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { findUserIdByKindeID } from "@/lib/db/user";
+import type { PostType } from "@/db/schema";
 import { authenticatedCreatePost } from "@/lib/actions/authenticatedDBActions";
+import { addPost, removePost } from "@/lib/signal/postSignals";
+import { PlusIcon } from "@heroicons/react/24/outline";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { authenticatedFindUserIdByKindeID } from "@/lib/actions/authenticatedDBActions";
 
 interface AddPostFormProps {
   postType: PostType;
@@ -33,7 +33,7 @@ export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
     e.preventDefault();
     if (!content.trim()) return;
 
-    const userId = await findUserIdByKindeID(user.id);
+    const userId = await authenticatedFindUserIdByKindeID(user.id);
     const postId = nanoid();
     const newPost = {
       id: postId,
