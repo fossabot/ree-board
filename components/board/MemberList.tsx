@@ -1,30 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
 import { removeMemberFromBoard } from "@/lib/actions/boardActions";
-import type { Role } from "@/db/schema";
-
-interface Member {
-  id: number;
-  userId: string;
-  role: Role;
-  updateAt: Date;
-}
+import React from "react";
+import type { MemberInfo } from "./MemberManage";
 
 interface MemberListProps {
   boardId: string;
-  initialMembers: Member[];
+  members: MemberInfo[];
 }
 
 export default function MemberList({
   boardId,
-  initialMembers,
+  members,
 }: MemberListProps) {
-  const [members, setMembers] = useState(initialMembers);
 
   async function handleRemoveMember(memberId: number) {
     await removeMemberFromBoard(boardId, memberId);
-    setMembers(members.filter((member) => member.id !== memberId));
   }
 
   return (
@@ -35,7 +26,7 @@ export default function MemberList({
           className="flex justify-between items-center bg-gray-100 p-2 rounded"
         >
           <div>
-            <p className="font-semibold">{member.userId}</p>
+            <p className="font-semibold">{member.username}</p>
           </div>
           <button
             onClick={() => handleRemoveMember(member.id)}

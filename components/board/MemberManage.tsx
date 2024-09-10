@@ -1,61 +1,73 @@
 "use client";
 
-import React, { useState } from "react";
+import type { Role } from "@/db/schema";
 import { addMemberToBoard } from "@/lib/actions/boardActions";
+import React, { useState } from "react";
+import MemberList from "./MemberList";
 
 interface MemberManageProps {
   boardId: string;
+  members: MemberInfo[];
 }
 
-export default function MemberManage({ boardId }: MemberManageProps) {
+export interface MemberInfo {
+  id: number;
+  userId: string;
+  role: Role;
+  username: string;
+  email: string;
+  updateAt: Date;
+}
+
+export default function MemberManage({ boardId, members }: MemberManageProps) {
   const [email, setEmail] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (email.trim()) {
       await addMemberToBoard(boardId, email.trim());
       setEmail("");
-      setIsModalOpen(false);
     }
   }
 
   return (
     <>
       <button
-        onClick={() => setIsModalOpen(true)}
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className="btn mx-4"
+        onClick={() => {
+          const modal = document.getElementById(
+            "member_manage_modal"
+          ) as HTMLDialogElement;
+          if (modal) {
+            modal.showModal();
+          }
+        }}
       >
         Manage Members
       </button>
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-4 rounded">
-            <form onSubmit={handleSubmit} className="mb-4">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter email address"
-                className="w-full p-2 border rounded"
-                required
-              />
-              <button
-                type="submit"
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-              >
-                Add Member
-              </button>
-            </form>
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400"
-            >
-              Close
+      <dialog id="member_manage_modal" className="modal">
+        <div className="modal-box">
+          <form onSubmit={handleSubmit} className="flex">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter email address"
+              className="w-full p-2 mr-0.5 border rounded"
+              required
+            />
+            <button type="submit" className="mt-2 btn btn-primary">
+              Add Member
             </button>
+          </form>
+          <div className="m-2">
+            <MemberList boardId={boardId} members={members} />
           </div>
         </div>
-      )}
+        <form method="dialog" className="modal-backdrop">
+          <button></button>
+        </form>
+      </dialog>
     </>
   );
 }
