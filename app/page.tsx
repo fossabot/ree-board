@@ -1,9 +1,11 @@
-import GlowEffect from "@/components/landing/GlowEffect";
 import {
   getKindeServerSession,
   LoginLink,
 } from "@kinde-oss/kinde-auth-nextjs/server";
+import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";
+
+const GlowEffect = dynamic(() => import("@/components/landing/GlowEffect"));
 
 export default async function Home() {
   const { isAuthenticated } = getKindeServerSession();
