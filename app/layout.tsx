@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { VercelToolbar } from "@vercel/toolbar/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,13 +13,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const shouldInjectToolbar = process.env.NODE_ENV === "development";
   return (
     <html lang="en">
       <body>
-          <main id="app" className="flex flex-col" data-theme="light">
-            <div className="flex-grow-1">{children}</div>
-          </main>
-          <SpeedInsights />
+        <main id="app" className="flex flex-col" data-theme="light">
+          <div className="flex-grow-1">{children}</div>
+          {shouldInjectToolbar && <VercelToolbar />}
+        </main>
+        <SpeedInsights />
       </body>
     </html>
   );
