@@ -33,6 +33,12 @@ export default function MemberList({
     Owner: Role.owner,
   };
 
+  const roleToKeyMap: Record<Role, keyof typeof roles> = {
+    [Role.guest]: "Guest",
+    [Role.member]: "Member",
+    [Role.owner]: "Owner",
+  };
+
   return (
     <ul className="space-y-2">
       {memberSignal.value.map((member) => (
@@ -43,6 +49,7 @@ export default function MemberList({
             <p className="text-sm text-gray-500">{member.email}</p>
           </div>
           <Select
+            value={roleToKeyMap[member.role]}
             onValueChange={(value: keyof typeof roles) =>
               handleRoleChange(member, roles[value])
             }
@@ -51,7 +58,7 @@ export default function MemberList({
               <SelectValue placeholder="Select role" />
             </SelectTrigger>
             <SelectContent>
-              {getEnumKeys(Role).map((role) => (
+              {getEnumKeys(roles).map((role) => (
                 <SelectItem key={role} value={role}>
                   {role}
                 </SelectItem>
