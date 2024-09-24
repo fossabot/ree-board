@@ -31,7 +31,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
   const role = await checkMemberRole(userID, boardID);
 
   if (role === null) {
-    redirect("/boards");
+    redirect("/board");
   }
 
   const posts = await fetchPostsByBoardID(boardID);
