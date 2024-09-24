@@ -23,6 +23,7 @@ import {
   removeMember,
   updateMember,
 } from "@/lib/signal/memberSingals";
+import { addToast } from "@/lib/signal/toastSignals";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { nanoid } from "nanoid";
 import dynamic from "next/dynamic";
@@ -75,7 +76,7 @@ export default function MemberManageModalComponent({
           });
         }
       } catch (error) {
-        // TODO: Add error toast
+        addToast("Error adding member. User might not exists.", "error");
         console.error(error);
       }
       setNewMember({ email: "" });
@@ -103,7 +104,7 @@ export default function MemberManageModalComponent({
         await authenticatedRemoveMemberFromBoard(memberToRemove.id, boardId);
         setMemberToRemove(null);
       } catch (error) {
-        // TODO: Add error toast
+        addToast("Error removing member. Please try again later.", "error");
         console.error(error);
       }
     }
@@ -136,7 +137,7 @@ export default function MemberManageModalComponent({
                 />
               </div>
               <Button type="submit" className="ml-auto">
-                <PlusCircleIcon className="mr-2 h-4 w-4" />
+                <PlusCircleIcon className="mr-2 size-4" />
                 Add Member
               </Button>
             </form>

@@ -6,6 +6,7 @@ import { NavBar } from "@/components/common";
 import { BoardList, CreateBoardForm } from "@/components/home";
 import { fetchBoards } from "@/lib/db/board";
 import { BoardProvider } from "@/components/home/BoardProvider";
+import { ToastSystem } from "@/components/common/ToastSystem";
 
 export default async function Boards() {
   const { getUser } = getKindeServerSession();
@@ -18,18 +19,21 @@ export default async function Boards() {
   const initialBoardList = await fetchBoards(user.id);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <NavBar />
+    <>
+      <div className="min-h-screen bg-gray-50">
+        <NavBar />
 
-      <div className="container mx-auto mt-8 px-4">
-        <h1 className="text-3xl font-bold mb-6">Your Boards</h1>
-        <div className="flex flex-wrap gap-4">
-          <BoardProvider initialBoards={initialBoardList}>
-            <CreateBoardForm />
-            <BoardList userID={user.id} />
-          </BoardProvider>
+        <div className="container mx-auto mt-8 px-4">
+          <h1 className="text-3xl font-bold mb-6">Your Boards</h1>
+          <div className="flex flex-wrap gap-4">
+            <BoardProvider initialBoards={initialBoardList}>
+              <CreateBoardForm />
+              <BoardList userID={user.id} />
+            </BoardProvider>
+          </div>
         </div>
       </div>
-    </div>
+      <ToastSystem />
+    </>
   );
 }

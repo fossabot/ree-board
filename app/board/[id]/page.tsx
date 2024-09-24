@@ -1,6 +1,7 @@
 import { BoardAccess, BoardGrid } from "@/components/board";
 import { PostProvider } from "@/components/board/PostProvider";
 import { NavBar } from "@/components/common";
+import { ToastSystem } from "@/components/common/ToastSystem";
 import { checkMemberRole, fetchMembersByBoardID } from "@/lib/db/member";
 import { fetchPostsByBoardID } from "@/lib/db/post";
 import { findUserIdByKindeID } from "@/lib/db/user";
@@ -46,6 +47,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
           <BoardGrid boardID={boardID} />
         </div>
       </PostProvider>
+      <ToastSystem />
     </>
   );
 }

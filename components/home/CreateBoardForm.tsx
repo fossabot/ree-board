@@ -6,13 +6,15 @@ import { BoardState, type NewBoard } from "@/db/schema";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { nanoid } from "nanoid";
 import { authenticatedCreateBoard } from "@/lib/actions/authenticatedDBActions";
+import { addToast } from "@/lib/signal/toastSignals";
+import { redirect } from "next/navigation";
 
 export default function CreateBoardForm() {
   const { user, getUser } = useKindeBrowserClient();
   const alsoUser = getUser();
 
   if (!user || !alsoUser) {
-    return null; // User not authenticated
+    redirect("/");
   }
 
   const createNewBoard = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,6 +42,7 @@ export default function CreateBoardForm() {
       await authenticatedCreateBoard(newBoard, user.id);
     } catch (error) {
       console.error("Failed to create board:", error);
+      addToast("Failed to create board. Please try again later.", "error");
       removeBoard(newBoardID); // Remove the temporary board from the UI if failed to create it
     }
   };
