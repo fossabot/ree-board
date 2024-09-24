@@ -39,7 +39,7 @@ export default function BoardColumn({
       <h3 className="font-bold text-lg p-3 bg-gray-200 rounded-t-lg">
         {title}
       </h3>
-      <div className="flex-grow overflow-y-auto p-2">
+      <div className="flex-grow overflow-y-auto p-2 gap-2">
         <AddPostForm postType={postType} boardID={boardID} />
         {postSignal.value
           .filter((post) => post.type === postType)

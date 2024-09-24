@@ -51,7 +51,7 @@ const PostCard: React.FC<PostCardProps> = ({
 
   return (
     <Card
-      className={`w-full max-w-md ${cardTypes[type]} relative`}
+      className={`w-full ${cardTypes[type]} relative`}
       draggable={true}
     >
       {onDelete && (
