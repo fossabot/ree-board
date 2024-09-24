@@ -5,11 +5,11 @@ import React, { useState } from "react";
 
 import { useAddPostForm } from "@/components/board/PostProvider";
 import type { PostType } from "@/db/schema";
-import { authenticatedCreatePost } from "@/lib/actions/authenticatedDBActions";
+import { authenticatedCreatePost, authenticatedFindUserIdByKindeID } from "@/lib/actions/authenticatedDBActions";
 import { addPost, removePost } from "@/lib/signal/postSignals";
+import { toast } from "@/lib/signal/toastSignals";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { authenticatedFindUserIdByKindeID } from "@/lib/actions/authenticatedDBActions";
 
 interface AddPostFormProps {
   postType: PostType;
@@ -33,28 +33,29 @@ export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
     e.preventDefault();
     if (!content.trim()) return;
 
-    const userId = await authenticatedFindUserIdByKindeID(user.id);
     const postId = nanoid();
-    const newPost = {
-      id: postId,
-      content,
-      type: postType,
-      author: userId,
-      boardId: boardID,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-
-    addPost(newPost);
-
     try {
+      const userId = await authenticatedFindUserIdByKindeID(user.id);
+      const newPost = {
+        id: postId,
+        content,
+        type: postType,
+        author: userId,
+        boardId: boardID,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      addPost(newPost);
+
       await authenticatedCreatePost(newPost);
     } catch (error) {
-      console.error("Failed to add post:", error);
+      toast.error("Failed to create a post. Please try again later.");
+      console.error("Failed to create a post:", error);
       removePost(postId); // Remove the temporary post from the UI if failed to create it
+    } finally {
+      setContent("");
     }
-
-    setContent("");
   };
 
   if (!isAdding) {
