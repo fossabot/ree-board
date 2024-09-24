@@ -2,9 +2,9 @@
 
 import { removeToast, toasts, type Toast } from "@/lib/signal/toastSignals";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { computed, effect } from "@preact/signals-react";
+import { computed } from "@preact/signals-react";
 import { useSignalEffect, useSignals } from "@preact/signals-react/runtime";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 const Toast = ({ toast }: { toast: Toast }) => {
   const colors: { [key: string]: string } = {
@@ -47,11 +47,11 @@ export function ToastSystem() {
   useSignals();
 
   const TOAST_HEIGHT = 70;
-  const STACKED_TOAST_HEIGHT = 70;
+  // const STACKED_TOAST_HEIGHT = 70;
 
   useSignalEffect(() => {
     if (toastContainerRef.current) {
-     const height = (visibleToasts.value.length + (stackedCount.value > 0 ? 1 : 0)) * 70
+     const height = (visibleToasts.value.length + (stackedCount.value > 0 ? 1 : 0)) * TOAST_HEIGHT
       toastContainerRef.current.style.height = `${height}px`
     }
   });
