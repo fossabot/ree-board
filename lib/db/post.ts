@@ -23,3 +23,7 @@ export const fetchPostsByBoardID = async (boardId: string) => {
     .from(postTable)
     .where(eq(postTable.boardId, boardId))
 };
+
+export const deletePost = async (postId: string) => {
+  await db.delete(postTable).where(eq(postTable.id, postId)).execute();
+};

@@ -3,7 +3,7 @@
 import type { NewBoard, NewMember, NewPost } from "@/db/schema";
 import { createBoard, deleteBoard } from "@/lib/db/board";
 import { addMember, removeMember } from "@/lib/db/member";
-import { createPost, fetchPostsByBoardID } from "@/lib/db/post";
+import { createPost, deletePost, fetchPostsByBoardID } from "@/lib/db/post";
 import { findUserByEmail, findUserIdByKindeID } from "@/lib/db/user";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
@@ -23,6 +23,9 @@ async function authenticatedAction<T>(
 
 export const authenticatedCreatePost = async (post: NewPost) =>
   authenticatedAction(() => createPost(post));
+
+export const authenticatedDeletePost = async (postId: string) =>
+  authenticatedAction(() => deletePost(postId));
 
 export const authenticatedFetchPostsByBoardID = async (boardId: string) =>
   authenticatedAction(() => fetchPostsByBoardID(boardId));
@@ -48,10 +51,16 @@ export const authenticatedDeleteBoard = async (
   userId: string
 ) => authenticatedAction(() => deleteBoard(boardId, userId));
 
-export const authenticatedFindUserIdByKindeID = async (kindeId: string) => authenticatedAction(() => findUserIdByKindeID(kindeId));
+export const authenticatedFindUserIdByKindeID = async (kindeId: string) =>
+  authenticatedAction(() => findUserIdByKindeID(kindeId));
 
-export const authenticatedFindUserByEmail = async (email: string) => authenticatedAction(() => findUserByEmail(email));
+export const authenticatedFindUserByEmail = async (email: string) =>
+  authenticatedAction(() => findUserByEmail(email));
 
-export const authenticatedAddMemberToBoard = async (newMember: NewMember) => authenticatedAction(() => addMember(newMember));
+export const authenticatedAddMemberToBoard = async (newMember: NewMember) =>
+  authenticatedAction(() => addMember(newMember));
 
-export const authenticatedRemoveMemberFromBoard = async (userId: string, boardId: string) => authenticatedAction(() => removeMember(userId, boardId));
+export const authenticatedRemoveMemberFromBoard = async (
+  userId: string,
+  boardId: string
+) => authenticatedAction(() => removeMember(userId, boardId));
