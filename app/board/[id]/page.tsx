@@ -3,6 +3,7 @@ import { AnonymousModeProvider } from "@/components/board/AnonymousModeProvider"
 import { PostProvider } from "@/components/board/PostProvider";
 import { NavBar } from "@/components/common";
 import { ToastSystem } from "@/components/common/ToastSystem";
+import { Role } from "@/db/schema";
 import { checkMemberRole, fetchMembersByBoardID } from "@/lib/db/member";
 import { fetchPostsByBoardID } from "@/lib/db/post";
 import { findUserIdByKindeID } from "@/lib/db/user";
@@ -29,6 +30,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
   }
 
   const role = await checkMemberRole(userID, boardID);
+  const viewOnly = role === Role.guest;
 
   if (role === null) {
     redirect("/board");
@@ -46,7 +48,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
             <div className="flex justify-end">
               <BoardAccess boardId={boardID} role={role} />
             </div>
-            <BoardGrid boardID={boardID} />
+            <BoardGrid boardID={boardID} viewOnly={viewOnly}/>
           </div>
         </PostProvider>
       </AnonymousModeProvider>

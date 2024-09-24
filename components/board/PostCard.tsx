@@ -12,6 +12,7 @@ interface PostCardProps {
   type: PostType;
   initialContent: string;
   id: string;
+  viewOnly?: boolean;
   onDelete?: (id: string) => void;
 }
 
@@ -19,6 +20,7 @@ const PostCard: React.FC<PostCardProps> = ({
   type,
   initialContent,
   id,
+  viewOnly,
   onDelete,
 }) => {
   const [message, setMessage] = useState(initialContent);
@@ -52,7 +54,7 @@ const PostCard: React.FC<PostCardProps> = ({
   return (
     <Card
       className={`w-full ${cardTypes[type]} relative`}
-      draggable={true}
+      draggable={viewOnly ? false : true}
     >
       {onDelete && (
         <Button
@@ -65,14 +67,15 @@ const PostCard: React.FC<PostCardProps> = ({
         </Button>
       )}
       <CardContent className="pt-8">
-        <Input
-          value={message}
-          onChange={handleChange}
-          // className={`bg-transparent border-none ${
-          //   isAnonymous ? "blur-sm" : ""
-          // }`}
-          className="bg-transparent border-none"
-        />
+        {viewOnly ? (
+          <p className="bg-transparent border-none">{message}</p>
+        ) : (
+          <Input
+            value={message}
+            onChange={handleChange}
+            className="bg-transparent border-none"
+          />
+        )}
       </CardContent>
       <CardFooter className="flex justify-between items-center">
         <Button

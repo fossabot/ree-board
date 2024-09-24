@@ -50,6 +50,7 @@ export default function BoardColumn({
               type={post.type}
               initialContent={post.content}
               onDelete={viewOnly ? undefined : () => handlePostDelete(post.id)}
+              viewOnly={viewOnly}
             />
           ))}
       </div>

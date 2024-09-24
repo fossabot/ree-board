@@ -6,9 +6,10 @@ const BoardColumn = lazy(() => import("@/components/board/BoardColumn"));
 
 interface BoardGridProps {
   boardID: string;
+  viewOnly?: boolean;
 }
 
-const BoardGrid: React.FC<BoardGridProps> = async ({ boardID }) => {
+const BoardGrid: React.FC<BoardGridProps> = async ({ boardID, viewOnly }) => {
   const columns = [
     { title: "Went Well", postType: PostType.went_well },
     { title: "To Improve", postType: PostType.to_improvement },
@@ -31,6 +32,7 @@ const BoardGrid: React.FC<BoardGridProps> = async ({ boardID }) => {
               title={column.title}
               postType={column.postType}
               boardID={boardID}
+              viewOnly={viewOnly}
             />
           </Suspense>
         </div>
