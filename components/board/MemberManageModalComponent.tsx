@@ -23,7 +23,7 @@ import {
   removeMember,
   updateMember,
 } from "@/lib/signal/memberSingals";
-import { addToast } from "@/lib/signal/toastSignals";
+import { toast } from "@/lib/signal/toastSignals";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { nanoid } from "nanoid";
 import dynamic from "next/dynamic";
@@ -76,7 +76,7 @@ export default function MemberManageModalComponent({
           });
         }
       } catch (error) {
-        addToast("Error adding member. User might not exists.", "error");
+        toast.error("Error adding member. User might not exists.");
         console.error(error);
       }
       setNewMember({ email: "" });
@@ -104,7 +104,7 @@ export default function MemberManageModalComponent({
         await authenticatedRemoveMemberFromBoard(memberToRemove.id, boardId);
         setMemberToRemove(null);
       } catch (error) {
-        addToast("Error removing member. Please try again later.", "error");
+        toast.error("Error removing member. Please try again later.");
         console.error(error);
       }
     }

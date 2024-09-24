@@ -16,9 +16,17 @@ const idGenerator = (function* () {
   }
 })();
 
-export const addToast = (message: string, type: Toast["type"]) => {
+const createToast = (type: Toast["type"]) => (...messages: any[]) => {
   const id = idGenerator.next().value;
+  const message = messages.join(' ');
   toasts.value = [...toasts.value, { id, message, type }];
+};
+
+export const toast = {
+  success: createToast("success"),
+  error: createToast("error"),
+  info: createToast("info"),
+  warning: createToast("warning"),
 };
 
 export const removeToast = (id: number) => {
