@@ -14,7 +14,7 @@ export default function CreateBoardForm() {
   const alsoUser = getUser();
 
   if (!user || !alsoUser) {
-    redirect("/");
+    return null;
   }
 
   const createNewBoard = async (e: React.FormEvent<HTMLFormElement>) => {
