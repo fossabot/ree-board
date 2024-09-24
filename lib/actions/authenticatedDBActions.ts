@@ -1,7 +1,8 @@
 "use server";
 
-import type { NewBoard, NewPost } from "@/db/schema";
+import type { NewBoard, NewMember, NewPost } from "@/db/schema";
 import { createBoard, deleteBoard } from "@/lib/db/board";
+import { addMember, removeMember } from "@/lib/db/member";
 import { createPost, fetchPostsByBoardID } from "@/lib/db/post";
 import { findUserByEmail, findUserIdByKindeID } from "@/lib/db/user";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -50,3 +51,7 @@ export const authenticatedDeleteBoard = async (
 export const authenticatedFindUserIdByKindeID = async (kindeId: string) => authenticatedAction(() => findUserIdByKindeID(kindeId));
 
 export const authenticatedFindUserByEmail = async (email: string) => authenticatedAction(() => findUserByEmail(email));
+
+export const authenticatedAddMemberToBoard = async (newMember: NewMember) => authenticatedAction(() => addMember(newMember));
+
+export const authenticatedRemoveMemberFromBoard = async (userId: string, boardId: string) => authenticatedAction(() => removeMember(userId, boardId));

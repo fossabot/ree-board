@@ -13,11 +13,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Role } from "@/db/schema";
-import { authenticatedFindUserByEmail } from "@/lib/actions/authenticatedDBActions";
+import {
+  authenticatedAddMemberToBoard,
+  authenticatedFindUserByEmail,
+  authenticatedRemoveMemberFromBoard,
+} from "@/lib/actions/authenticatedDBActions";
 import {
   addMember,
   removeMember,
-  updateMember
+  updateMember,
 } from "@/lib/signal/memberSingals";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { nanoid } from "nanoid";
@@ -54,13 +58,20 @@ export default function MemberManageModalComponent({
         if (!user) {
           throw new Error("User not found");
         } else {
+          const memberId = nanoid();
           addMember({
-            id: nanoid(),
+            id: memberId,
             userId: user.id,
             username: user.name,
             email: newMember.email,
             role: Role.member,
             updateAt: new Date(),
+          });
+          await authenticatedAddMemberToBoard({
+            id: memberId,
+            boardId,
+            role: Role.member,
+            userId: user.id,
           });
         }
       } catch (error) {
@@ -85,10 +96,16 @@ export default function MemberManageModalComponent({
     setMemberToRemove(member);
   };
 
-  const confirmRemoveMember = () => {
+  const confirmRemoveMember = async () => {
     if (memberToRemove) {
-      removeMember(memberToRemove.id);
-      setMemberToRemove(null);
+      try {
+        removeMember(memberToRemove.id);
+        await authenticatedRemoveMemberFromBoard(memberToRemove.id, boardId);
+        setMemberToRemove(null);
+      } catch (error) {
+        // TODO: Add error toast
+        console.error(error);
+      }
     }
   };
 
