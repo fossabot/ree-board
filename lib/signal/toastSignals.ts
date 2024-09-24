@@ -16,7 +16,7 @@ const idGenerator = (function* () {
   }
 })();
 
-const createToast = (type: Toast["type"]) => (...messages: any[]) => {
+const createToast = (type: Toast["type"]) => (...messages: string[]): void => {
   const id = idGenerator.next().value;
   const message = messages.join(' ');
   toasts.value = [...toasts.value, { id, message, type }];
