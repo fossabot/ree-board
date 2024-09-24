@@ -1,4 +1,5 @@
 import { BoardAccess, BoardGrid } from "@/components/board";
+import { AnonymousModeProvider } from "@/components/board/AnonymousModeProvider";
 import { PostProvider } from "@/components/board/PostProvider";
 import { NavBar } from "@/components/common";
 import { ToastSystem } from "@/components/common/ToastSystem";
@@ -39,14 +40,16 @@ export default async function BoardPage({ params }: BoardPageProps) {
   return (
     <>
       <NavBar />
-      <PostProvider initialPosts={posts} initialMembers={members}>
-        <div className="container mx-auto w-full max-w-full px-4">
-          <div className="flex justify-end">
-            <BoardAccess boardId={boardID} role={role} />
+      <AnonymousModeProvider>
+        <PostProvider initialPosts={posts} initialMembers={members}>
+          <div className="container mx-auto w-full max-w-full px-4">
+            <div className="flex justify-end">
+              <BoardAccess boardId={boardID} role={role} />
+            </div>
+            <BoardGrid boardID={boardID} />
           </div>
-          <BoardGrid boardID={boardID} />
-        </div>
-      </PostProvider>
+        </PostProvider>
+      </AnonymousModeProvider>
       <ToastSystem />
     </>
   );
