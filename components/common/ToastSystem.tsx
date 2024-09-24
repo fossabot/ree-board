@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
 import { removeToast, toasts, type Toast } from "@/lib/signal/toastSignals";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { computed } from "@preact/signals-react";
+import { computed, effect } from "@preact/signals-react";
+import { useSignalEffect, useSignals } from "@preact/signals-react/runtime";
 import { useEffect, useRef } from "react";
 
 const Toast = ({ toast }: { toast: Toast }) => {
@@ -43,25 +44,27 @@ export function ToastSystem() {
   const visibleToasts = computed(() => toasts.value.slice(0, 5));
   const stackedCount = computed(() => toasts.value.length - 5);
 
-  useEffect(() => {
+  useSignals();
+
+  const TOAST_HEIGHT = 70;
+  const STACKED_TOAST_HEIGHT = 70;
+
+  useSignalEffect(() => {
     if (toastContainerRef.current) {
-      toastContainerRef.current.style.height = `${
-        visibleToasts.value.length * 70
-      }px`;
+     const height = (visibleToasts.value.length + (stackedCount.value > 0 ? 1 : 0)) * 70
+      toastContainerRef.current.style.height = `${height}px`
     }
-  }, [visibleToasts.value]);
+  });
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
-      <div
-        ref={toastContainerRef}
-        className="fixed bottom-4 right-4 w-72 space-y-2 transition-all duration-300 ease-in-out"
-      >
-        {visibleToasts.value.map((toast) => (
-          <Toast key={toast.id} toast={toast} />
-        ))}
-        {stackedCount.value > 0 && <StackedToast count={stackedCount.value} />}
-      </div>
+    <div
+      ref={toastContainerRef}
+      className="fixed bottom-4 right-4 w-72 space-y-2 transition-all duration-300 ease-in-out"
+    >
+      {visibleToasts.value.map((toast) => (
+        <Toast key={toast.id} toast={toast} />
+      ))}
+      {stackedCount.value > 0 && <StackedToast count={stackedCount.value} />}
     </div>
   );
 }

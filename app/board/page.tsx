@@ -32,8 +32,8 @@ export default async function Boards() {
             </BoardProvider>
           </div>
         </div>
+        <ToastSystem />
       </div>
-      <ToastSystem />
     </>
   );
 }
