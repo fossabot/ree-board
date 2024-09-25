@@ -2,9 +2,20 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { DialogHeader } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 import { PostType } from "@/db/schema";
-import { XMarkIcon, HandThumbUpIcon } from "@heroicons/react/24/outline";
+import {
+  HandThumbUpIcon,
+  PencilSquareIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@radix-ui/react-dialog";
 import React, { useState } from "react";
 // import { useAnonymousMode } from "./AnonymousModeProvider";
 
@@ -26,6 +37,7 @@ const PostCard: React.FC<PostCardProps> = ({
   const [message, setMessage] = useState(initialContent);
   const [voteCount, setVoteCount] = useState(0);
   const [hasVoted, setHasVoted] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   // const isAnonymous = useAnonymousMode();
 
@@ -51,11 +63,12 @@ const PostCard: React.FC<PostCardProps> = ({
     setHasVoted(!hasVoted);
   };
 
+  const handleEdit = () => {
+    setIsEditing(false);
+  };
+
   return (
-    <Card
-      className={`w-full ${cardTypes[type]} relative`}
-      draggable={viewOnly ? false : true}
-    >
+    <Card className={`w-full ${cardTypes[type]} relative`}>
       {onDelete && (
         <Button
           variant="ghost"
@@ -67,28 +80,43 @@ const PostCard: React.FC<PostCardProps> = ({
         </Button>
       )}
       <CardContent className="pt-8">
-        {viewOnly ? (
-          <p className="bg-transparent border-none">{message}</p>
-        ) : (
-          <Input
-            value={message}
-            onChange={handleChange}
-            className="bg-transparent border-none"
-          />
-        )}
+        <p className="whitespace-pre-wrap">{message}</p>
       </CardContent>
       <CardFooter className="flex justify-between items-center">
-        <Button
-          variant="ghost"
-          size="sm"
-          className={`flex items-center ${
-            hasVoted ? "text-blue-600" : "text-gray-500"
-          }`}
-          onClick={handleVote}
-        >
-          <HandThumbUpIcon className="size-4 mr-2" />
-          <span>{voteCount}</span>
-        </Button>
+        <p className="text-sm text-gray-500 capitalize">{type}</p>
+        <div className="flex items-center space-x-2">
+          {!viewOnly && (
+            <Dialog open={isEditing} onOpenChange={setIsEditing}>
+              <DialogTrigger asChild>
+                <Button variant="ghost" size="sm">
+                  <PencilSquareIcon className="size-4" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Edit Message</DialogTitle>
+                </DialogHeader>
+                <Textarea
+                  value={message}
+                  onChange={handleChange}
+                  className="min-h-[100px]"
+                />
+                <Button onClick={handleEdit}>Save</Button>
+              </DialogContent>
+            </Dialog>
+          )}
+          <Button
+            variant="ghost"
+            size="sm"
+            className={`flex items-center ${
+              hasVoted ? "text-blue-600" : "text-gray-500"
+            }`}
+            onClick={handleVote}
+          >
+            <HandThumbUpIcon className="size-4 mr-2" />
+            <span>{voteCount}</span>
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   );
