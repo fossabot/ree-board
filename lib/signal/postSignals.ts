@@ -20,3 +20,14 @@ export const removePost = (postID: string) => {
     ];
   }
 };
+
+export const updatePost = (updatedPost: Post) => {
+  const index = postSignal.value.findIndex((post) => post.id === updatedPost.id);
+  if (index!== -1) {
+    postSignal.value = [
+     ...postSignal.value.slice(0, index),
+      updatedPost,
+     ...postSignal.value.slice(index + 1),
+    ];
+  }
+}

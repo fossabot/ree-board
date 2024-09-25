@@ -1,9 +1,14 @@
 "use server";
 
-import type { NewBoard, NewMember, NewPost } from "@/db/schema";
+import type { NewBoard, NewMember, NewPost, PostType } from "@/db/schema";
 import { createBoard, deleteBoard } from "@/lib/db/board";
 import { addMember, removeMember } from "@/lib/db/member";
-import { createPost, deletePost, fetchPostsByBoardID } from "@/lib/db/post";
+import {
+  createPost,
+  deletePost,
+  fetchPostsByBoardID,
+  updatePostType,
+} from "@/lib/db/post";
 import { findUserByEmail, findUserIdByKindeID } from "@/lib/db/user";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
@@ -26,6 +31,11 @@ export const authenticatedCreatePost = async (post: NewPost) =>
 
 export const authenticatedDeletePost = async (postId: string) =>
   authenticatedAction(() => deletePost(postId));
+
+export const authenticatedUpdatePostType = async (
+  id: string,
+  newType: PostType
+) => authenticatedAction(() => updatePostType(id, newType));
 
 export const authenticatedFetchPostsByBoardID = async (boardId: string) =>
   authenticatedAction(() => fetchPostsByBoardID(boardId));
