@@ -55,7 +55,7 @@ const PostCard: React.FC<PostCardProps> = ({
     <Card
       className={`w-full ${cardTypes[type]} relative`}
       draggable={viewOnly ? false : true}
-    >
+          >
       {onDelete && (
         <Button
           variant="ghost"
