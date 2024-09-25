@@ -2,12 +2,11 @@
 
 import AddPostForm from "@/components/board/AddPostForm";
 import type { PostType } from "@/db/schema";
-import { postSignal, removePost } from "@/lib/signal/postSignals";
-import { useSignals } from "@preact/signals-react/runtime";
-import React from "react";
-import PostCard from "./PostCard";
+import { authenticatedDeletePost, authenticatedUpdatePostContent } from "@/lib/actions/authenticatedDBActions";
+import { postSignal, removePost, updatePost } from "@/lib/signal/postSignals";
 import { toast } from "@/lib/signal/toastSignals";
-import { authenticatedDeletePost } from "@/lib/actions/authenticatedDBActions";
+import { useSignals } from "@preact/signals-react/runtime";
+import PostCard from "./PostCard";
 
 interface BoardColumnProps {
   boardID: string;
@@ -34,6 +33,16 @@ export default function BoardColumn({
     }
   };
 
+  const handlePostUpdate = async (id: string, newContent: string) => {
+    try {
+      await authenticatedUpdatePostContent(id, newContent);
+      updatePost({ id, content: newContent  });
+    } catch (error) {
+      toast.error("Failed to update post");
+      console.error("Failed to update post:", error);
+    }
+  }
+
   return (
     <div className="h-[calc(100vh-4rem)] w-0.25 flex flex-col bg-gray-100 rounded-lg shadow-md mx-2">
       <h3 className="font-bold text-lg p-3 bg-gray-200 rounded-t-lg">
@@ -51,6 +60,7 @@ export default function BoardColumn({
               initialContent={post.content}
               onDelete={viewOnly ? undefined : () => handlePostDelete(post.id)}
               viewOnly={viewOnly}
+              onUpdate={handlePostUpdate}
             />
           ))}
       </div>
