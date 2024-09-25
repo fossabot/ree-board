@@ -31,8 +31,8 @@ const PostCard: React.FC<PostCardProps> = ({
 
   const cardTypes = {
     [PostType.went_well]: "bg-green-100",
-    [PostType.to_improvement]: "bg-yellow-100",
-    [PostType.to_discuss]: "bg-blue-100",
+    [PostType.to_improvement]: "bg-red-100",
+    [PostType.to_discuss]: "bg-yellow-100",
     [PostType.action_item]: "bg-purple-100",
   };
 
