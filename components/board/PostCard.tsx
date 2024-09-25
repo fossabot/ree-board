@@ -17,7 +17,7 @@ import {
   DialogTrigger,
 } from "@radix-ui/react-dialog";
 import React, { useState } from "react";
-// import { useAnonymousMode } from "./AnonymousModeProvider";
+import { useAnonymousMode } from "./AnonymousModeProvider";
 
 interface PostCardProps {
   type: PostType;
@@ -39,7 +39,7 @@ const PostCard: React.FC<PostCardProps> = ({
   const [hasVoted, setHasVoted] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  // const isAnonymous = useAnonymousMode();
+  const isAnonymous = useAnonymousMode();
 
   const cardTypes = {
     [PostType.went_well]: "bg-green-100",
@@ -80,10 +80,15 @@ const PostCard: React.FC<PostCardProps> = ({
         </Button>
       )}
       <CardContent className="pt-8">
-        <p className="whitespace-pre-wrap">{message}</p>
+        <p
+          className={`whitespace-pre-wrap ${
+            isAnonymous ? "blur-sm select-none" : ""
+          }`}
+        >
+          {message}
+        </p>
       </CardContent>
-      <CardFooter className="flex justify-between items-center">
-        <p className="text-sm text-gray-500 capitalize">{type}</p>
+      <CardFooter className="flex justify-between items-right">
         <div className="flex items-center space-x-2">
           {!viewOnly && (
             <Dialog open={isEditing} onOpenChange={setIsEditing}>
