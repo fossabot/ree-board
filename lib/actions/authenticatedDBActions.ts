@@ -7,6 +7,7 @@ import {
   createPost,
   deletePost,
   fetchPostsByBoardID,
+  updatePostContent,
   updatePostType,
 } from "@/lib/db/post";
 import { findUserByEmail, findUserIdByKindeID } from "@/lib/db/user";
@@ -36,6 +37,9 @@ export const authenticatedUpdatePostType = async (
   id: string,
   newType: PostType
 ) => authenticatedAction(() => updatePostType(id, newType));
+
+export const authenticatedUpdatePostContent = async (id: string, newContent: string) =>
+  authenticatedAction(() => updatePostContent(id, newContent));
 
 export const authenticatedFetchPostsByBoardID = async (boardId: string) =>
   authenticatedAction(() => fetchPostsByBoardID(boardId));

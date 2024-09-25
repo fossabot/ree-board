@@ -1,5 +1,5 @@
 import { signal } from "@preact/signals-react";
-import type { Post } from "@/db/schema";
+import type { NewPost, Post } from "@/db/schema";
 
 export const postSignal = signal<Post[]>([]);
 
@@ -21,13 +21,15 @@ export const removePost = (postID: string) => {
   }
 };
 
-export const updatePost = (updatedPost: Post) => {
-  const index = postSignal.value.findIndex((post) => post.id === updatedPost.id);
-  if (index!== -1) {
+export const updatePost = (updatedPost: Partial<NewPost>) => {
+  const index = postSignal.value.findIndex(
+    (post) => post.id === updatedPost.id
+  );
+  if (index !== -1) {
     postSignal.value = [
-     ...postSignal.value.slice(0, index),
-      updatedPost,
-     ...postSignal.value.slice(index + 1),
+      ...postSignal.value.slice(0, index),
+      { ...postSignal.value[index], ...updatedPost },
+      ...postSignal.value.slice(index + 1),
     ];
   }
-}
+};

@@ -41,3 +41,14 @@ export const updatePostType = async (id: string, newType: PostType) => {
     .where(eq(postTable.id, id))
     .execute();
 };
+
+export const updatePostContent = async (id: string, newContent: string) => {
+  await db
+    .update(postTable)
+    .set({
+      content: newContent,
+      updatedAt: new Date(),
+    })
+    .where(eq(postTable.id, id))
+    .execute();
+}
