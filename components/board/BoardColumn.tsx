@@ -2,10 +2,15 @@
 
 import AddPostForm from "@/components/board/AddPostForm";
 import type { PostType } from "@/db/schema";
-import { authenticatedDeletePost, authenticatedUpdatePostContent } from "@/lib/actions/authenticatedDBActions";
+import {
+  authenticatedDeletePost,
+  authenticatedUpdatePostContent,
+} from "@/lib/actions/authenticatedDBActions";
 import { postSignal, removePost, updatePost } from "@/lib/signal/postSignals";
 import { toast } from "@/lib/signal/toastSignals";
 import { useSignals } from "@preact/signals-react/runtime";
+import { AnimatePresence, motion } from "framer-motion";
+import { useRef } from "react";
 import PostCard from "./PostCard";
 
 interface BoardColumnProps {
@@ -22,6 +27,7 @@ export default function BoardColumn({
   viewOnly = false,
 }: BoardColumnProps) {
   useSignals();
+  const columnRef = useRef<HTMLDivElement>(null);
 
   const handlePostDelete = async (id: string) => {
     try {
@@ -36,33 +42,44 @@ export default function BoardColumn({
   const handlePostUpdate = async (id: string, newContent: string) => {
     try {
       await authenticatedUpdatePostContent(id, newContent);
-      updatePost({ id, content: newContent  });
+      updatePost({ id, content: newContent });
     } catch (error) {
       toast.error("Failed to update post");
       console.error("Failed to update post:", error);
     }
-  }
+  };
 
   return (
-    <div className="h-[calc(100vh-4rem)] w-0.25 flex flex-col bg-gray-100 rounded-lg shadow-md mx-2">
-      <h3 className="font-bold text-lg p-3 bg-gray-200 rounded-t-lg">
-        {title}
-      </h3>
-      <div className="flex-grow overflow-y-auto p-2 gap-2">
-        <AddPostForm postType={postType} boardID={boardID} />
-        {postSignal.value
-          .filter((post) => post.type === postType)
-          .map((post) => (
-            <PostCard
-              key={post.id}
-              id={post.id}
-              type={post.type}
-              initialContent={post.content}
-              onDelete={viewOnly ? undefined : () => handlePostDelete(post.id)}
-              viewOnly={viewOnly}
-              onUpdate={handlePostUpdate}
-            />
-          ))}
+    <div className="w-full flex flex-col bg-gray-50 rounded-lg shadow-md mx-2">
+      <div className="bg-gray-100 rounded-t-lg p-4">
+        <h3 className="font-bold text-xl text-center mb-4">{title}</h3>
+        {!viewOnly && (
+          <AddPostForm postType={postType} boardID={boardID} />
+        )}
+      </div>
+      <div ref={columnRef} className="flex-grow overflow-y-auto p-4 space-y-4">
+        <AnimatePresence>
+          {postSignal.value
+            .filter((post) => post.type === postType)
+            .map((post) => (
+              <motion.div
+                key={post.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <PostCard
+                  id={post.id}
+                  type={post.type}
+                  initialContent={post.content}
+                  onDelete={viewOnly ? undefined : () => handlePostDelete(post.id)}
+                  viewOnly={viewOnly}
+                  onUpdate={handlePostUpdate}
+                />
+              </motion.div>
+            ))}
+        </AnimatePresence>
       </div>
     </div>
   );

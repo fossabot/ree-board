@@ -73,19 +73,19 @@ export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-2 bg-white p-2 rounded-md shadow-md transition-all duration-200 ease-in-out"
+      className="mt-2 p-2 transition-all duration-200 ease-in-out"
     >
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Enter a title for this card..."
-        className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 resize-none"
+        className="w-full p-2 border border-gray-300 rounded-sm focus:border-blue-400 resize-none"
         rows={3}
       />
       <div className="mt-2 flex items-center">
         <button
           type="submit"
-          className="px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors duration-200 ease-in-out"
+          className="px-3 py-1.5 bg-green-600 text-white rounded-sm hover:bg-green-700 transition-colors duration-200 ease-in-out"
         >
           Add Card
         </button>
