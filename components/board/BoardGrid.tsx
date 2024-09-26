@@ -20,7 +20,10 @@ const BoardGrid: React.FC<BoardGridProps> = async ({ boardID, viewOnly }) => {
   return (
     <div className="flex flex-wrap -mx-2">
       {columns.map((column) => (
-        <div key={column.title} className="h-full w-full ~w-[1/2]/[1/4] px-1 mb-4">
+        <div
+          key={column.title}
+          className="h-full w-full md:w-1/2 lg:w-1/4 px-1 mb-4"
+        >
           <Suspense
             fallback={
               <div>

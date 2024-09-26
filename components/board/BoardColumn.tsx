@@ -1,6 +1,5 @@
 "use client";
 
-import AddPostForm from "@/components/board/AddPostForm";
 import type { PostType } from "@/db/schema";
 import {
   authenticatedDeletePost,
@@ -10,8 +9,11 @@ import { postSignal, removePost, updatePost } from "@/lib/signal/postSignals";
 import { toast } from "@/lib/signal/toastSignals";
 import { useSignals } from "@preact/signals-react/runtime";
 import { AnimatePresence, motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import { useRef } from "react";
 import PostCard from "./PostCard";
+
+const AddPostForm = dynamic(() => import("@/components/board/AddPostForm"));
 
 interface BoardColumnProps {
   boardID: string;
@@ -50,14 +52,12 @@ export default function BoardColumn({
   };
 
   return (
-    <div className="w-full flex flex-col bg-gray-50 rounded-lg shadow-md mx-2">
-      <div className="bg-gray-100 rounded-t-lg p-4">
+    <div className="w-full flex flex-col bg-gray-100 rounded-xl mx-2">
+      <div className="bg-gray-100 rounded-t-lg p-2">
         <h3 className="font-bold text-xl text-center mb-4">{title}</h3>
-        {!viewOnly && (
-          <AddPostForm postType={postType} boardID={boardID} />
-        )}
+        {!viewOnly && <AddPostForm postType={postType} boardID={boardID} />}
       </div>
-      <div ref={columnRef} className="flex-grow overflow-y-auto p-4 space-y-4">
+      <div ref={columnRef} className="flex-grow overflow-y-auto p-3 space-y-3">
         <AnimatePresence>
           {postSignal.value
             .filter((post) => post.type === postType)
@@ -73,7 +73,9 @@ export default function BoardColumn({
                   id={post.id}
                   type={post.type}
                   initialContent={post.content}
-                  onDelete={viewOnly ? undefined : () => handlePostDelete(post.id)}
+                  onDelete={
+                    viewOnly ? undefined : () => handlePostDelete(post.id)
+                  }
                   viewOnly={viewOnly}
                   onUpdate={handlePostUpdate}
                 />
