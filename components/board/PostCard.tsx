@@ -83,16 +83,16 @@ const PostCard: React.FC<PostCardProps> = ({
           <XMarkIcon className="h-4 w-4" />
         </Button>
       )}
-      <CardContent className="pt-8">
+      <CardContent className="pt-6 p-5">
         <p
-          className={`whitespace-pre-wrap text-balance break-words ${
+          className={`whitespace-pre-wrap text-balance break-words pt-1.5 ${
             isAnonymous ? "blur-sm select-none" : ""
           }`}
         >
           {message}
         </p>
       </CardContent>
-      <CardFooter className="flex justify-end items-center">
+      <CardFooter className="flex justify-end items-center p-3">
         <div className="flex items-center space-x-2">
           {!viewOnly && (
             <Dialog open={isEditing} onOpenChange={setIsEditing}>
