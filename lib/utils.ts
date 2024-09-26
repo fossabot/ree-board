@@ -1,9 +1,11 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { extendTailwindMerge } from "tailwind-merge";
+import { withFluid } from "@fluid-tailwind/tailwind-merge";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
+  export function cn(...inputs: ClassValue[]) {
+    const twMerge = extendTailwindMerge(withFluid);
+    return twMerge(clsx(inputs));
+  }
 
 export function getEnumKeys<
   T extends string,

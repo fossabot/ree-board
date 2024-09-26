@@ -111,6 +111,9 @@ importers:
       '@eslint/js':
         specifier: ^9.10.0
         version: 9.10.0
+      '@fluid-tailwind/tailwind-merge':
+        specifier: ^0.0.3
+        version: 0.0.3(tailwind-merge@2.5.2)
       '@next/bundle-analyzer':
         specifier: ^14.2.9
         version: 14.2.9
@@ -165,6 +168,9 @@ importers:
       eslint-plugin-drizzle:
         specifier: ^0.2.3
         version: 0.2.3(eslint@8.57.1)
+      fluid-tailwind:
+        specifier: ^1.0.3
+        version: 1.0.3(tailwindcss@3.4.10)
       postcss:
         specifier: ^8.4.47
         version: 8.4.47
@@ -1085,6 +1091,11 @@ packages:
 
   '@floating-ui/utils@0.2.7':
     resolution: {integrity: sha512-X8R8Oj771YRl/w+c1HqAC1szL8zWQRwFvgDwT129k9ACdBoud/+/rX9V0qiMl6LWUdP9voC2nDVZYPMQQsb6eA==}
+
+  '@fluid-tailwind/tailwind-merge@0.0.3':
+    resolution: {integrity: sha512-0lTV5NnIZArH9cV/qCw8N+wSdbb+0iUmWFnpHeTX8YT3U+ufLof/fADvAVMCPPnLIox3y3E8fMykmCn9WJ+/JA==}
+    peerDependencies:
+      tailwind-merge: ^2.4.0
 
   '@headlessui/react@2.1.8':
     resolution: {integrity: sha512-uajqVkAcVG/wHwG9Fh5PFMcFpf2VxM4vNRNKxRjuK009kePVur8LkuuygHfIE+2uZ7z7GnlTtYsyUe6glPpTLg==}
@@ -2689,6 +2700,10 @@ packages:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
     engines: {node: '>=8'}
 
+  filter-obj@5.1.0:
+    resolution: {integrity: sha512-qWeTREPoT7I0bifpPUXtxkZJ1XJzxWtfoWWkdVGqa+eCr3SHW/Ocp89o8vLvbUuQnadybJpjOKu4V+RwO6sGng==}
+    engines: {node: '>=14.16'}
+
   find-up@5.0.0:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
@@ -2699,6 +2714,11 @@ packages:
 
   flatted@3.3.1:
     resolution: {integrity: sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==}
+
+  fluid-tailwind@1.0.3:
+    resolution: {integrity: sha512-JhSklHiXUcKnb/PIru1TbyorLD+k0rCIgeAbFwzu1QyQHYDKmKKsKzN7xPisSeGGr7FtYY9S63t+tzddUlxxrQ==}
+    peerDependencies:
+      tailwindcss: ^3.2.0
 
   for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -3191,6 +3211,10 @@ packages:
     resolution: {integrity: sha512-PafSWvDTpxdtNEndS2HIHxcNAbd54OaqSYJO90/b63rab2HWYqDbH194j0i82ZFdWOAcf0AHinRykXRRK2PJbw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
+
+  map-obj@5.0.2:
+    resolution: {integrity: sha512-K6K2NgKnTXimT3779/4KxSvobxOtMmx1LBZ3NwRxT/MDIR3Br/fQ4Q+WCX5QxjyUR8zg5+RV9Tbf2c5pAWTD2A==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
@@ -4964,6 +4988,10 @@ snapshots:
       tabbable: 6.2.0
 
   '@floating-ui/utils@0.2.7': {}
+
+  '@fluid-tailwind/tailwind-merge@0.0.3(tailwind-merge@2.5.2)':
+    dependencies:
+      tailwind-merge: 2.5.2
 
   '@headlessui/react@2.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -6779,6 +6807,8 @@ snapshots:
     dependencies:
       to-regex-range: 5.0.1
 
+  filter-obj@5.1.0: {}
+
   find-up@5.0.0:
     dependencies:
       locate-path: 6.0.0
@@ -6791,6 +6821,13 @@ snapshots:
       rimraf: 3.0.2
 
   flatted@3.3.1: {}
+
+  fluid-tailwind@1.0.3(tailwindcss@3.4.10):
+    dependencies:
+      filter-obj: 5.1.0
+      map-obj: 5.0.2
+      picocolors: 1.1.0
+      tailwindcss: 3.4.10
 
   for-each@0.3.3:
     dependencies:
@@ -6806,6 +6843,13 @@ snapshots:
       fetch-blob: 3.2.0
 
   fraction.js@4.3.7: {}
+
+  framer-motion@11.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      tslib: 2.7.0
+    optionalDependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   fs.realpath@1.0.0: {}
 
@@ -7264,6 +7308,8 @@ snapshots:
   lucide-react@0.439.0(react@18.3.1):
     dependencies:
       react: 18.3.1
+
+  map-obj@5.0.2: {}
 
   merge-stream@2.0.0: {}
 

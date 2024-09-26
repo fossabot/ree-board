@@ -85,7 +85,7 @@ const PostCard: React.FC<PostCardProps> = ({
       )}
       <CardContent className="pt-8">
         <p
-          className={`whitespace-pre-wrap ${
+          className={`whitespace-pre-wrap text-balance break-words ${
             isAnonymous ? "blur-sm select-none" : ""
           }`}
         >
