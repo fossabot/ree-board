@@ -1,8 +1,11 @@
 import { LoadingSpinner } from "@/components/ui";
 import { PostType } from "@/db/schema";
-import React, { lazy, Suspense } from "react";
+import dynamic from "next/dynamic";
+import React from "react";
 
-const BoardColumn = lazy(() => import("@/components/board/BoardColumn"));
+const BoardColumn = dynamic(() => import("@/components/board/BoardColumn"), {
+  loading: () => <LoadingSpinner />,
+});
 
 interface BoardGridProps {
   boardID: string;
@@ -24,20 +27,12 @@ const BoardGrid: React.FC<BoardGridProps> = async ({ boardID, viewOnly }) => {
           key={column.title}
           className="h-full w-full md:w-1/2 lg:w-1/4 px-1 mb-4"
         >
-          <Suspense
-            fallback={
-              <div>
-                <LoadingSpinner />
-              </div>
-            }
-          >
-            <BoardColumn
-              title={column.title}
-              postType={column.postType}
-              boardID={boardID}
-              viewOnly={viewOnly}
-            />
-          </Suspense>
+          <BoardColumn
+            title={column.title}
+            postType={column.postType}
+            boardID={boardID}
+            viewOnly={viewOnly}
+          />
         </div>
       ))}
     </div>
