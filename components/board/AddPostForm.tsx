@@ -4,11 +4,16 @@ import { nanoid } from "nanoid";
 import React, { useState } from "react";
 
 import { useAddPostForm } from "@/components/board/PostProvider";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import type { PostType } from "@/db/schema";
-import { authenticatedCreatePost, authenticatedFindUserIdByKindeID } from "@/lib/actions/authenticatedDBActions";
+import {
+  authenticatedCreatePost,
+  authenticatedFindUserIdByKindeID,
+} from "@/lib/actions/authenticatedDBActions";
 import { addPost, removePost } from "@/lib/signal/postSignals";
 import { toast } from "@/lib/signal/toastSignals";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
 interface AddPostFormProps {
@@ -19,6 +24,7 @@ interface AddPostFormProps {
 export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
   const { openFormId, setOpenFormId } = useAddPostForm();
   const [content, setContent] = useState("");
+  const [tempContent, setTempContent] = useState("");
 
   const formId = `${boardID}-${postType}`;
   const isAdding = openFormId === formId;
@@ -47,14 +53,16 @@ export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
       };
 
       addPost(newPost);
+      setTempContent(content);
+      setContent("");
 
       await authenticatedCreatePost(newPost);
     } catch (error) {
       toast.error("Failed to create a post. Please try again later.");
       console.error("Failed to create a post:", error);
-      removePost(postId); // Remove the temporary post from the UI if failed to create it
-    } finally {
-      setContent("");
+      removePost(postId);
+      setContent(tempContent);
+      setTempContent("");
     }
   };
 
@@ -75,27 +83,31 @@ export default function AddPostForm({ postType, boardID }: AddPostFormProps) {
       onSubmit={handleSubmit}
       className="mt-2 p-2 transition-all duration-200 ease-in-out"
     >
-      <textarea
+      <Textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Enter a title for this card..."
-        className="w-full p-2 border border-gray-300 rounded-sm focus:border-blue-400 resize-none"
+        className="w-full p-2 border border-gray-300 rounded-sm focus:border-blue-400 bg-slate-50"
         rows={3}
       />
       <div className="mt-2 flex items-center">
-        <button
+        <Button
           type="submit"
-          className="px-3 py-1.5 bg-green-600 text-white rounded-sm hover:bg-green-700 transition-colors duration-200 ease-in-out"
+          className="px-3 py-1.5 rounded-sm bg-blue-600 text-white"
+          variant="outline"
+          aria-labelledby="add post button"
         >
           Add Card
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
           onClick={() => setOpenFormId("")}
           className="ml-2 text-gray-600 hover:text-gray-800 transition-colors duration-200 ease-in-out"
+          size="icon"
+          variant="ghost"
+          aria-labelledby="close form button"
         >
-          ✕
-        </button>
+          <XMarkIcon className="h-4 w-4" />
+        </Button>
       </div>
     </form>
   );
