@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { VercelToolbar } from "@vercel/toolbar/next";
+import dynamic from "next/dynamic";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Ree Board",
   description: "Retro board application for your team",
 };
+
+const SpeedInsights = dynamic(
+  () => import("@vercel/speed-insights/next").then((mod) => mod.SpeedInsights)
+);
+
+const VercelToolbar = dynamic(
+  () => import("@vercel/toolbar/next").then((mod) => mod.VercelToolbar)
+);
 
 export default function RootLayout({
   children,

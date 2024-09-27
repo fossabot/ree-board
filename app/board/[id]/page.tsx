@@ -29,15 +29,16 @@ export default async function BoardPage({ params }: BoardPageProps) {
     throw new Error("User not found");
   }
 
-  const role = await checkMemberRole(userID, boardID);
+  const [role, posts, members] = await Promise.all([
+    checkMemberRole(userID, boardID),
+    fetchPostsByBoardID(boardID),
+    fetchMembersByBoardID(boardID)
+  ]);
   const viewOnly = role === Role.guest;
 
   if (role === null) {
     redirect("/board");
   }
-
-  const posts = await fetchPostsByBoardID(boardID);
-  const members = await fetchMembersByBoardID(boardID);
 
   return (
     <>
