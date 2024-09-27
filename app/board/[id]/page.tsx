@@ -4,7 +4,7 @@ import { PostProvider } from "@/components/board/PostProvider";
 import { NavBar } from "@/components/common";
 import { ToastSystem } from "@/components/common/ToastSystem";
 import { Role } from "@/db/schema";
-import { checkMemberRole, fetchMembersByBoardID } from "@/lib/db/member";
+import { fetchMembersByBoardID } from "@/lib/db/member";
 import { fetchPostsByBoardID } from "@/lib/db/post";
 import { findUserIdByKindeID } from "@/lib/db/user";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -29,16 +29,16 @@ export default async function BoardPage({ params }: BoardPageProps) {
     throw new Error("User not found");
   }
 
-  const [role, posts, members] = await Promise.all([
-    checkMemberRole(userID, boardID),
+  const [posts, members] = await Promise.all([
     fetchPostsByBoardID(boardID),
     fetchMembersByBoardID(boardID)
   ]);
-  const viewOnly = role === Role.guest;
+  const role = members.find((m) => m.id === userID)?.role;
 
-  if (role === null) {
+  if (!role) {
     redirect("/board");
   }
+  const viewOnly = role === Role.guest;
 
   return (
     <>
