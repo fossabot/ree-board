@@ -33,7 +33,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
     fetchPostsByBoardID(boardID),
     fetchMembersByBoardID(boardID)
   ]);
-  const role = members.find((m) => m.id === userID)?.role;
+  const role = members.find((m) => m.userId === userID)?.role;
 
   if (!role) {
     redirect("/board");
