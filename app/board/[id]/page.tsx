@@ -35,7 +35,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
   ]);
   const role = members.find((m) => m.userId === userID)?.role;
 
-  if (!role) {
+  if (role === undefined) {
     redirect("/board");
   }
   const viewOnly = role === Role.guest;
