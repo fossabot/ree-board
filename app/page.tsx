@@ -1,34 +1,24 @@
+import { Button } from "@/components/ui/button";
 import {
-  getKindeServerSession,
-  LoginLink,
+  LoginLink
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import dynamic from "next/dynamic";
-import { redirect } from "next/navigation";
 
 const GlowEffect = dynamic(() => import("@/components/landing/GlowEffect"));
 
 export default async function Home() {
-  const { isAuthenticated } = getKindeServerSession();
-  const isUserAuthenticated = await isAuthenticated();
-
-  if (!isUserAuthenticated) {
-    return (
-      <div className="hero bg-base-200 min-h-screen">
-        <GlowEffect />
-        <div className="hero-content text-center">
-          <div className="max-w-md">
-            <h1 className="text-5xl font-bold">Ree Board</h1>
-            <p className="py-6">
-              Retro board build with Next.js and Tailwind CSS
-            </p>
-            <button className="btn btn-outline btn-primary">
-              <LoginLink>Login</LoginLink>
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  } else {
-    redirect("/board");
-  }
+  return (
+    <div className="relative min-h-screen flex flex-col items-center justify-center bg-slate-100 overflow-hidden">
+      <GlowEffect />
+      <h1 className="text-9xl font-bold text-slate-800 mb-8 relative z-10">
+        Ree board
+      </h1>
+      <h2 className="text-2xl text-slate-600 mb-8 relative z-10">
+        Made retro a breeze with ReeBoard
+      </h2>
+      <Button className="bg-slate-600 text-white hover:bg-slate-700 transition-colors duration-200 relative z-10 h-14 w-22 text-lg">
+        <LoginLink>Login</LoginLink>
+      </Button>
+    </div>
+  );
 }
