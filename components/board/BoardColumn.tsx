@@ -52,7 +52,7 @@ export default function BoardColumn({
   };
 
   return (
-    <div className="w-full flex flex-col bg-gray-100 rounded-xl mx-2">
+    <div className="flex flex-col bg-gray-100 rounded-xl">
       <div className="bg-gray-100 rounded-t-lg p-2">
         <h3 className="font-bold text-xl text-center mb-4">{title}</h3>
         {!viewOnly && <AddPostForm postType={postType} boardID={boardID} />}

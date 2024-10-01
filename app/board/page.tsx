@@ -22,8 +22,7 @@ export default async function Boards() {
     <>
       <div className="min-h-screen bg-gray-50">
         <NavBar />
-
-        <div className="container mx-auto mt-8 px-4">
+        <div className="mx-10 mt-8 px-10">
           <h1 className="text-3xl font-bold mb-6">Your Boards</h1>
           <div className="flex flex-wrap gap-4">
             <BoardProvider initialBoards={initialBoardList}>

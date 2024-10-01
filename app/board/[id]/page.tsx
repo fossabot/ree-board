@@ -31,7 +31,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
 
   const [posts, members] = await Promise.all([
     fetchPostsByBoardID(boardID),
-    fetchMembersByBoardID(boardID)
+    fetchMembersByBoardID(boardID),
   ]);
   const role = members.find((m) => m.userId === userID)?.role;
 
@@ -45,12 +45,10 @@ export default async function BoardPage({ params }: BoardPageProps) {
       <NavBar />
       <AnonymousModeProvider>
         <PostProvider initialPosts={posts} initialMembers={members}>
-          <div className="container mx-auto w-full max-w-full px-4">
-            <div className="flex justify-end">
-              <BoardAccess boardId={boardID} role={role} />
-            </div>
-            <BoardGrid boardID={boardID} viewOnly={viewOnly}/>
+          <div className="flex justify-end">
+            <BoardAccess boardId={boardID} role={role} />
           </div>
+          <BoardGrid boardID={boardID} viewOnly={viewOnly} />
         </PostProvider>
       </AnonymousModeProvider>
       <ToastSystem />

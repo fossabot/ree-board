@@ -24,8 +24,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main id="app" className="flex flex-col" data-theme="light">
-          <div className="flex-grow-1">{children}</div>
+        <main id="app">
+          {children}
           {shouldInjectToolbar && <VercelToolbar />}
         </main>
         <SpeedInsights />

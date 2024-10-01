@@ -21,19 +21,15 @@ const BoardGrid: React.FC<BoardGridProps> = async ({ boardID, viewOnly }) => {
   ];
 
   return (
-    <div className="flex flex-wrap -mx-2">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
       {columns.map((column) => (
-        <div
+        <BoardColumn
           key={column.title}
-          className="h-full w-full md:w-1/2 lg:w-1/4 px-1 mb-4"
-        >
-          <BoardColumn
-            title={column.title}
-            postType={column.postType}
-            boardID={boardID}
-            viewOnly={viewOnly}
-          />
-        </div>
+          title={column.title}
+          postType={column.postType}
+          boardID={boardID}
+          viewOnly={viewOnly}
+        />
       ))}
     </div>
   );
